@@ -206,7 +206,7 @@ const App = () => {
           {/* Right Column: Image (White Background) */}
           <div className="md:w-1/2 bg-[#ffffff] flex items-center justify-center overflow-hidden">
             <img
-              src="https://placehold.co/800x1200/CCCCCC/000000?text=Your+Portrait"
+              src="https://raw.githubusercontent.com/zaidnfs/My-Portfolio/refs/heads/main/public/image/White%20desk%20with%20pen%2C%20notebook%20and%20laptop.jpg"
               alt="Zaid's Portrait"
               className="w-full h-full object-cover"
             />
@@ -441,7 +441,7 @@ const App = () => {
           {/* Left Column: Image */}
           <div className="md:w-1/2 bg-[#000000] flex items-center justify-center overflow-hidden">
             <img
-              src="https://placehold.co/800x1200/CCCCCC/000000?text=Contact+Image" // Placeholder for contact image
+              src="https://raw.githubusercontent.com/zaidnfs/My-Portfolio/refs/heads/main/public/image/download%20(1).jpg" // Placeholder for contact image
               alt="Contact Me"
               className="w-full h-full object-cover"
             />
