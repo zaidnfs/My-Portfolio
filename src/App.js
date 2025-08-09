@@ -158,7 +158,7 @@ const App = () => {
       <header className="relative z-20 bg-[#ededed] bg-opacity-90 fixed w-full top-0 py-4 px-6 md:px-12 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-[#000000]">Zaid.dev</h1>
         <nav>
-          <ul className="flex space-x-4 md:space-x-8">
+          <ul className="flex space-x-4 md:space-x-8 font-semibold">
             {/* Only Home and Contact links */}
             {['home', 'contact'].map((section) => (
               <li key={section}>
@@ -181,25 +181,26 @@ const App = () => {
         <section id="home" ref={sectionRefs.home} className="flex flex-col md:flex-row min-h-screen pt-16 md:pt-0">
           {/* Left Column: Text Content (Black Background) */}
           <div className="md:w-1/2 bg-[#000000] flex flex-col justify-center p-8 md:p-16 text-left text-[#ffffff]">
-            <h2 className="text-6xl md:text-7xl font-normal mb-64 leading-tight">
+            <h2 className="text-6xl md:text-7xl font-normal mb-20 leading-tight">
               Mohammad Zaid Alam
             </h2>
             {/* Introduction Section */}
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold pb-2 mb-4">Introduction:</h3>
-              <div className={`h-1 bg-[#ffffff] ${sectionVisibility.home ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.1s' }}></div> {/* Thick line */}
-              <p className="text-base leading-snug mt-4">
-                Welcome to my online resume, a platform where skills meet opportunities. Dive into my journey to discover a world of expertise and dedication.
+            <div className="">
+              <h3 className="text-3xl font-semibold mb-[76px]">Introduction:</h3>
+              <div className={`h-px bg-[#ffffff] ${sectionVisibility.home ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.1s' }}></div> {/* Thick line */}
+              <p className="text-base leading-snug my-8 font-semibold">
+                Welcome to my online profile, where ambition and technology go hand in hand. Dive into my journey in Cloud Computing and Artificial Intelligence, and see how I turn ideas into tangible results.
               </p>
             </div>
             {/* Summary Section */}
             <div>
               <div className={`h-1 bg-[#ffffff] ${sectionVisibility.home ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
-              <h3 className="text-xl font-semibold pb-2 my-4">Summary:</h3>
-              <p className="text-base leading-snug">
-                I'm a highly motivated <strong className="text-[#ffffff]">3rd Year CS Student</strong> specializing in <strong className="text-[#ffffff]">Cloud Computing</strong> and <strong className="text-[#ffffff]">AI</strong>. Passionate about building scalable solutions and intelligent systems. Currently aiming for an internship/job in Japan and preparing for JLPT.
+              <h3 className="text-3xl font-semibold mt-20 mb-[76px]">Summary:</h3>
+              <div className={`h-px bg-[#ffffff] ${sectionVisibility.home ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.3s' }}></div> {/* Thin line */}
+              <p className="text-base leading-snug font-semibold my-8">
+                I am a passionate student in the field of Cloud Computing and Artificial Intelligence, eager to learn and grow. While I am still building my portfolio of achievements, I constantly explore new technologies, experiment with ideas, and develop skills that will help me create meaningful and impactful solutions in the future.
               </p>
-              <div className={`h-1 bg-[#ffffff] mt-4 ${sectionVisibility.home ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.5s' }}></div> {/* Thick bottom border */}
+              <div className={`h-1 bg-[#ffffff] ${sectionVisibility.home ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.5s' }}></div> {/* Thick bottom border */}
             </div>
           </div>
 
@@ -209,6 +210,7 @@ const App = () => {
               src="https://raw.githubusercontent.com/zaidnfs/My-Portfolio/refs/heads/main/public/image/White%20desk%20with%20pen%2C%20notebook%20and%20laptop.jpg"
               alt="Zaid's Portrait"
               className="w-full h-full object-cover"
+              Object-fit
             />
           </div>
         </section>
@@ -222,14 +224,13 @@ const App = () => {
           {/* Right Column: Text Content (Light Background) */}
           <div className="md:w-1/2 bg-[#f2f2f2] flex flex-col justify-start py-16 md:py-24 px-8 md:px-16 text-left text-[#000000]">
             <p className="text-base leading-snug mb-4">
-              As a 3rd-year Computer Science student, my academic journey has been focused on the exciting fields of <strong className="text-[#000000]">Cloud Computing</strong> and <strong className="text-[#000000]">Artificial Intelligence</strong>. I'm fascinated by how these technologies are reshaping industries and creating new possibilities.
+              I am a 3rd-year Computer Science student specializing in <strong className="text-[#000000]">Cloud Computing</strong> and <strong className="text-[#000000]">Artificial Intelligence</strong>. My journey goes beyond academics — I actively explore new technologies, experiment with projects, and seek opportunities to expand my skills.
             </p>
             <p className="text-base leading-snug mb-4">
-              I have hands-on experience with various cloud platforms and AI frameworks, developing projects that range from scalable web services to machine learning models. My goal is to leverage these skills to build innovative solutions that make a real impact.
+              Currently, I am focused on gaining real-world experience and am actively looking for internship opportunities where I can apply my knowledge, collaborate with experienced professionals, and grow as a developer. My passion lies in building scalable, intelligent solutions and embracing every opportunity to learn something new.
             </p>
             <p className="text-base leading-snug">
-              Beyond academics, I am actively learning Japanese and preparing for the JLPT, driven by a strong desire to pursue career opportunities in Japan. I am eager to contribute my technical expertise and adaptability to a dynamic international environment.
-            </p>
+              Outside of my technical work, I enjoy exploring different cultures and languages, and I am currently studying Japanese to broaden my global career opportunities.            </p>
           </div>
         </section>
 
@@ -239,46 +240,51 @@ const App = () => {
           <div className="md:w-1/2 bg-[#f2f2f2] flex flex-col justify-start p-8 md:p-16 text-left text-[#000000]">
             {/* Skill Category: Cloud & DevOps */}
             <div className="mb-8">
-              <div className={`h-1 bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.1s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-4 pb-4 flex items-center">
-                <span className="mr-2" dangerouslySetInnerHTML={{ __html: Icons.Cloud({ size: 24, className: '' }) }} /> Cloud & DevOps
+              <div className={`h-1 bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.5s' }}></div> {/* Thick top border */}
+              <h3 className="text-lg font-semibold py-4 flex items-center">
+                <i className="fas fa-cloud mr-2"></i> Cloud & DevOps
               </h3>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.1s' }}></div> {/* Thin bottom border */}
+              <div className={`h-px bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
               <ul className="list-disc list-inside text-base leading-snug space-y-2 mt-4">
-                <li>AWS (EC2, S3, Lambda, DynamoDB)</li>
-                <li>Azure (VMs, Blob Storage, Functions)</li>
-                <li>Docker, Kubernetes</li>
-                <li>CI/CD (GitHub Actions, Jenkins)</li>
+                <li>AWS (EC2, S3, IAM)</li>
+                <li>Google Cloud Platform (Vertex AI Prompt Design)</li>
+                <li>Vercel Deployment</li>
+                <li>Nginx</li>
+                <li>Git, Git Bash, GitHub</li>
+                <li>Docker (Familiar)</li>
               </ul>
             </div>
 
-            {/* Skill Category: Artificial Intelligence & ML */}
+            {/* Skill Category: Software Development & Programming */}
             <div className="mb-8">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-4 pb-4 flex items-center">
-                <span className="mr-2" dangerouslySetInnerHTML={{ __html: Icons.Award({ size: 24, className: '' }) }} /> AI & Machine Learning
+              <h3 className="text-lg font-semibold py-4 flex items-center">
+                <i className="fas fa-laptop-code mr-2"></i> Software Development & Programming
               </h3>
               <div className={`h-px bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.2s' }}></div> {/* Thin bottom border */}
               <ul className="list-disc list-inside text-base leading-snug space-y-2 mt-4">
-                <li>Python (TensorFlow, PyTorch, Scikit-learn)</li>
-                <li>Natural Language Processing (NLP)</li>
-                <li>Computer Vision</li>
-                <li>Data Analysis (Pandas, NumPy)</li>
+                <li>Golang, Python, JavaScript, C, C++</li>
+                <li>React.js, Node.js, Express.js</li>
+                <li>HTML5, CSS3, Tailwind CSS</li>
+                <li>MongoDB (NoSQL), SQL</li>
+                <li>REST API Development</li>
               </ul>
             </div>
 
-            {/* Skill Category: Programming Languages & Web Dev */}
+            {/* Skill Category: Artificial Intelligence & Emerging Tech */}
             <div className="mb-8">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.5s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-4 pb-4 flex items-center">
-                <span className="mr-2" dangerouslySetInnerHTML={{ __html: Icons.Code({ size: 24, className: '' }) }} /> Programming & Web Dev
+              <h3 className="text-lg font-semibold py-4 flex items-center">
+                <i className="fas fa-brain mr-2"></i> Artificial Intelligence & Emerging Tech
               </h3>
               <div className={`h-px bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.7s' }}></div> {/* Thin bottom border */}
               <ul className="list-disc list-inside text-base leading-snug space-y-2 mt-4">
-                <li>Python, Java, C++</li>
-                <li>JavaScript, React.js, Node.js</li>
-                <li>HTML5, CSS3, Tailwind CSS</li>
-                <li>SQL, NoSQL (MongoDB)</li>
+                <li>Machine Learning (IBM Machine Learning Certificate)</li>
+                <li>Prompt Design in Vertex AI (Google Cloud)</li>
+                <li>Building Real-World AI Applications with Gemini & Imagen</li>
+                <li>Chatbot Development (IBM Watson)</li>
+                <li>Data Analysis (Pandas, NumPy)</li>
+                <li>Prompt Engineering (In Progress)</li>
               </ul>
             </div>
           </div>
@@ -301,17 +307,14 @@ const App = () => {
             {/* Project Card 1 */}
             <div className="mb-8">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.5s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-2 pb-2">Cloud-Native E-commerce Platform</h3> {/* Adjusted padding */}
+              <h3 className="text-lg font-semibold pt-2 pb-2">HTTP Server from Scratch <span className="font-normal text-base">[ Go, TCP Sockets ]</span></h3>  {/* Adjusted padding */}
               <div className={`h-px bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
               <p className="text-base leading-snug mb-4 mt-4">
-                Developed a scalable e-commerce solution using AWS Lambda, DynamoDB, and API Gateway. Implemented serverless functions for product management, user authentication, and order processing.
+                Developed a custom HTTP server from scratch in Go, handling raw TCP connections without using the net/http package. Implemented manual HTTP request parsing, GET/POST handling, dynamic routing, and concurrency with goroutines to strengthen networking fundamentals.
               </p>
               <div className="flex space-x-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
-                  <span className="mr-1" dangerouslySetInnerHTML={{ __html: Icons.Github({ size: 20, className: '' }) }} /> GitHub
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
-                  <span className="mr-1" dangerouslySetInnerHTML={{ __html: Icons.Link({ size: 20, className: '' }) }} /> Live Demo
+                <a href="https://github.com/zaidnfs/codecrafters-http-server-go" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
+                  <i className="fab fa-github mr-1"></i> GitHub
                 </a>
               </div>
             </div>
@@ -319,21 +322,44 @@ const App = () => {
             {/* Project Card 2 */}
             <div className="mb-8">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-2 pb-2">AI-Powered Chatbot for Customer Support</h3> {/* Adjusted padding */}
+              <h3 className="text-lg font-semibold pt-2 pb-2">Simple Blog Web App <span className="font-normal text-base">[ React, Node.js, MongoDB, Vercel ]</span></h3> {/* Adjusted padding */}
               <div className={`h-px bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
               <p className="text-base leading-snug mb-4 mt-4">
-                Built an intelligent chatbot using Python, TensorFlow, and natural language processing techniques. Trained on a custom dataset to provide automated responses and escalate complex queries.
+                Built a full-stack blog platform using React (frontend), Node.js and Express.js (backend). Implemented MongoDB as the primary database for storing blog posts and user data. Deployed the application on Vercel, ensuring seamless frontend and backend integration.
               </p>
               <div className="flex space-x-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
-                  <span className="mr-1" dangerouslySetInnerHTML={{ __html: Icons.Github({ size: 20, className: '' }) }} /> GitHub
+                <a href="https://github.com/zaidnfs/simple-blog-frontend" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
+                  <i className="fab fa-github mr-1"></i> GitHub
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
-                  <span className="mr-1" dangerouslySetInnerHTML={{ __html: Icons.Link({ size: 20, className: '' }) }} /> Live Demo
+                <a href="https://simple-blog-frontend-2ujgq0jnz-md-zaid-alams-projects-d5d0e8eb.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
+                  <i className="fas fa-external-link-alt mr-1"></i> Live Demo
                 </a>
               </div>
             </div>
             {/* Add more project cards as needed */}
+            {/* Project Card 2 */}
+            <div className="mb-8">
+              <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
+              <h3 className="text-lg font-semibold pt-2 pb-2">GoLang Mini Projects <span className="font-normal text-base">[Go]</span></h3> {/* Adjusted padding */}
+              <div className={`h-px bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
+              <p className="text-base leading-snug mb-4 mt-4">
+                 Created small-scale projects in Go demonstrating file I/O, structs, arrays, slices, and maps. Published code on GitHub as part of a self-learning initiative.
+              </p>
+              <div className="flex space-x-4">
+                <a href="https://github.com/zaidnfs/Golang_Practice" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
+                  <i className="fab fa-github mr-1"></i> GitHub
+                </a>
+              </div>
+            </div>
+            {/* Project Card 4 */}
+            <div className="mb-8">
+              <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
+              <h3 className="text-lg font-semibold pt-2 pb-2">AI-Powered Image Analysis App <span className="font-normal text-base">[Google Cloud, Vertex AI, Gemini, Imagen]</span></h3> {/* Adjusted padding */}
+              <div className={`h-px bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
+              <p className="text-base leading-snug mb-4 mt-4">
+                Experimented with Google Cloud’s Vertex AI, Gemini, and Imagen to build a proof-of-concept AI app that generates and interprets images based on natural language prompts.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -345,11 +371,12 @@ const App = () => {
             <div className="mb-6">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.5s' }}></div> {/* Thick top border */}
               <h4 className="text-lg font-semibold text-[#000000] pt-4 pb-4 flex justify-between items-baseline">
-                Software Developer Intern <span className="font-normal text-base"> [Tech Solutions Inc.]</span>
+                Simple Blog Application
+                <a href="https://simple-blog-frontend-2ujgq0jnz-md-zaid-alams-projects-d5d0e8eb.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-[#000000] hover:text-gray-700 transition-colors flex items-center"><i class="fas fa-external-link-alt mr-1"></i> Live Demo</a>
               </h4>
               <div className={`h-px bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
               <p className="text-base leading-snug mb-4 mt-4">
-                Contributed to the development of a microservices-based application using Node.js and AWS. Implemented RESTful APIs and integrated with various AWS services like SQS and S3. Participated in code reviews and agile development sprints.
+                Built a full-stack blog platform using React, Node.js, MongoDB, and PostgreSQL. Implemented authentication, post management, and responsive design.
               </p>
             </div>
 
@@ -357,11 +384,11 @@ const App = () => {
             <div className="mb-6">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
               <h4 className="text-lg font-semibold text-[#000000] pt-4 pb-4 flex justify-between items-baseline">
-                AI Research Assistant <span className="font-normal text-base"> [University Lab]</span>
+                AWS Web App Deployment
               </h4>
               <div className={`h-px bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.2s' }}></div> {/* Thin bottom border */}
               <p className="text-base leading-snug mb-4 mt-4">
-                Assisted in developing and testing machine learning models for natural language processing. Conducted data preprocessing, feature engineering, and model evaluation. Published a research paper on sentiment analysis.
+                Deployed a simple web application on AWS EC2 with Nginx for reverse proxy and Vercel for frontend hosting. Configured IAM roles for secure access.
               </p>
             </div>
 
@@ -369,11 +396,12 @@ const App = () => {
             <div className="mb-6">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.5s' }}></div> {/* Thick top border */}
               <h4 className="text-lg font-semibold text-[#000000] pt-4 pb-4 flex justify-between items-baseline">
-                Cloud Support Engineer Intern <span className="font-normal text-base"> [Cloud Services Co.]</span>
+                Personal Portfolio Website
+                <a href="https://zaidnfs.github.io/My-Portfolio/" target="_blank" rel="noopener noreferrer" class="text-[#000000] hover:text-gray-700 transition-colors flex items-center"><i class="fas fa-external-link-alt mr-1"></i> Live Demo</a>
               </h4>
               <div className={`h-px bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.7s' }}></div> {/* Thin bottom border */}
               <p className="text-base leading-snug mb-4 mt-4">
-                Provided technical support to clients for cloud infrastructure issues. Troubleshooted network configurations, database connectivity, and application deployments on Azure. Documented solutions and created knowledge base articles.
+                Designed and developed a personal portfolio website using React.js and Tailwind CSS to showcase projects, skills, and resume. Integrated Formspree for a fully functional contact form, and optimized the site for responsiveness, smooth navigation, and animated transitions.
               </p>
             </div>
           </div>
@@ -393,46 +421,52 @@ const App = () => {
           <div className="md:w-1/2 bg-[#ffffff] flex flex-col justify-start p-8 md:p-16 text-left text-[#000000]">
             {/* Education Entry 1 */}
             <div className="mb-6">
-              <div className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.5s' }}></div> {/* Thick top border */}
-              <h4 className="text-lg font-semibold py-2">Bachelor of Technology in Computer Science</h4>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
-              <p className="text-base leading-snug mt-4">
-                Your University Name | 2022 - 2026 (Expected)
-              </p>
-              <ul className="list-disc list-inside text-sm mt-2 space-y-2">
-                <li>Specialization in Cloud Computing and Artificial Intelligence.</li>
-                <li>Relevant Coursework: Data Structures & Algorithms, Operating Systems, Machine Learning, Distributed Systems.</li>
-                <li>GPA: [Your GPA Here]</li>
-              </ul>
-            </div>
-
+  <div
+    className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
+    style={{ animationDelay: '0.5s' }}
+  ></div>
+  <h4 className="text-lg font-semibold py-2">
+    Bachelor of Technology – Computer Science & Engineering
+  </h4>
+  <div
+    className={`h-px bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
+    style={{ animationDelay: '0.7s' }}
+  ></div>
+  <p className="text-base leading-snug mt-4 font-semibold">
+    Integral University, Lucknow, Uttar Pradesh
+  </p>
+          <ul className="list-disc list-inside text-sm mt-2 space-y-2">
+             <li>Specialization in Cloud Computing & Artificial Intelligence.</li>
+             <li>
+              Relevant Coursework: Data Structures, Software Methodology, Algorithm
+              Analysis, Database Management, Artificial Intelligence, Internet
+              Technology.
+             </li>
+             <li>Actively building projects and exploring emerging tech trends.</li>
+           </ul>
+        </div>
             {/* Education Entry 2 (Example - add more as needed) */}
             <div className="mb-6">
-              <div className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
-              <h4 className="text-lg font-semibold py-2">Certification in Cloud Architecture</h4>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.2s' }}></div> {/* Thin bottom border */}
-              <p className="text-base leading-snug mt-4">
-                Cloud Academy | 2024
-              </p>
-              <ul className="list-disc list-inside text-sm mt-2 space-y-2">
-                <li>Focused on designing and deploying scalable cloud solutions.</li>
-                <li>Covered AWS, Azure, and Google Cloud best practices.</li>
-              </ul>
-            </div>
+  <div
+    className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
+    style={{ animationDelay: '0.9s' }}
+  ></div>
+  <h4 className="text-lg font-semibold py-2">
+    Professional Certifications & Online Courses
+  </h4>
+  <div
+    className={`h-px bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
+    style={{ animationDelay: '1.1s' }}
+  ></div>
+  <ul className="list-disc list-inside text-sm mt-2 space-y-2">
+    <li>Data Structures & Algorithms – Udemy</li>
+    <li>Full-Stack Web Development – Udemy</li>
+    <li>Prompt Engineering – Udemy</li>
+  </ul>
+</div>
 
             {/* Education Entry 3 (Example - add more as needed) */}
-            <div className="mb-6">
-              <div className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.5s' }}></div> {/* Thick top border */}
-              <h4 className="text-lg font-semibold py-2">JLPT N5 Preparation Course</h4>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.2s' }}></div> {/* Thin bottom border */}
-              <p className="text-base leading-snug mt-4">
-                Online Japanese School | 2025
-              </p>
-              <ul className="list-disc list-inside text-sm mt-2 space-y-2">
-                <li>Intensive course covering Japanese grammar, vocabulary, and kanji for N5 level.</li>
-                <li>Focus on conversational skills and reading comprehension.</li>
-              </ul>
-            </div>
+            
           </div>
         </section>
 
@@ -443,12 +477,12 @@ const App = () => {
             <img
               src="https://raw.githubusercontent.com/zaidnfs/My-Portfolio/refs/heads/main/public/image/download%20(1).jpg" // Placeholder for contact image
               alt="Contact Me"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
           {/* Right Column: Text Content */}
           <div className="md:w-1/2 bg-[#000000] flex flex-col justify-start p-8 md:p-16 text-left text-[#ffffff]">
-            <h2 className="text-4xl md:text-5xl font-semibold mb-8 leading-tight">Reach Out for Opportunities</h2>
+            <h2 className="text-4xl md:text-5xl font-semibold leading-tight mb-[200px]">Reach Out for Opportunities</h2>
             <form action="https://formspree.io/f/xyzpndly" method="POST" className="space-y-6 mb-8">
               <div>
                 <label htmlFor="firstName" className="block text-[#ffffff] text-base font-medium mb-2">First name *</label>
@@ -501,10 +535,33 @@ const App = () => {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 bg-[#000000] bg-opacity-90 py-8 mt-0 text-center text-[#ffffff]">
-        <p>&copy; {new Date().getFullYear()} Zaid. All rights reserved.</p>
-        <p className="text-sm mt-2">Designed with <span className="text-[#ffffff]">&hearts;</span> and built with React & Tailwind CSS.</p>
+      <footer className="bg-[#ffffff] py-8 px-6 md:px-16 text-[#000000]">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+          {/* Left - Name */}
+          <div>
+            <h2 className="text-2xl font-bold">Mohammad Zaid Alam</h2>
+          </div>
+
+          {/* Middle - Contact Info */}
+          <div className="text-sm">
+            <p className="font-medium">+91 89278-95633</p>
+            <p className="font-medium">zaidlc319@gmail.com</p>
+            <p className="mt-2">Kursi Rd, Lucknow, Uttar Pradesh, India</p>
+          </div>
+        </div>
+
+        {/* Social Icons */}
+        <div className="flex justify-center md:justify-start gap-4 mt-6 text-lg">
+          <a href="https://www.linkedin.com/in/zaid107" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin"></i></a>
+          <a href="https://github.com/zaidnfs" target="_blank" rel="noopener noreferrer"><i className="fab fa-github"></i></a>
+          {/* Add other social media links as needed, or remove if not applicable */}
+          <a href="https://x.com/Akii_hello" target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a>
+        </div>
+
+        {/* Copyright Notice */}
+        <div className="text-center">
+          <p className="text-sm text-gray-500">&copy; {new Date().getFullYear()} Mohammad Zaid Alam. All Rights Reserved.</p>
+        </div>
       </footer>
     </div>
   );
