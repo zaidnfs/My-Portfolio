@@ -477,7 +477,7 @@ const App = () => {
             <img
               src="https://raw.githubusercontent.com/zaidnfs/My-Portfolio/refs/heads/main/public/image/download%20(1).jpg" // Placeholder for contact image
               alt="Contact Me"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
             />
           </div>
           {/* Right Column: Text Content */}
