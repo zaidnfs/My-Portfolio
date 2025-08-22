@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // Define SVG icons as functions returning SVG strings.
 // These strings will be injected into the DOM using dangerouslySetInnerHTML.
+// Note: While these are defined, the new navbar explicitly uses Font Awesome icons (e.g., <i className="fas fa-home">).
+// These custom SVG icons would be used if you replace the Font Awesome <i> tags with a component that renders these SVGs.
 const Icons = {
   Link: ({ size = 24, className = '' }) => `
     <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="${className}">
@@ -50,7 +52,6 @@ const Icons = {
     </svg>
   `,
 };
-
 
 // Main App component
 const App = () => {
@@ -135,6 +136,18 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Custom icons for the floating navbar using Font Awesome
+  const icons = {
+    home: <i className="fas fa-home"></i>,
+    about: <i className="fas fa-user"></i>,
+    skills: <i className="fas fa-cogs"></i>,
+    projects: <i className="fas fa-code"></i>,
+    experience: <i className="fas fa-briefcase"></i>,
+    education: <i className="fas fa-graduation-cap"></i>,
+    contact: <i className="fas fa-envelope"></i>,
+  };
+
+
   return (
     <div className="min-h-screen bg-[#f2f2f2] text-[#000000] font-madefor">
       {/* Define global CSS for line animation */}
@@ -154,26 +167,54 @@ const App = () => {
         `}
       </style>
 
-      {/* Header */}
-      <header className="relative z-20 bg-[#ededed] bg-opacity-90 fixed w-full top-0 py-4 px-6 md:px-12 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-[#000000]">Zaid.dev</h1>
-        <nav>
-          <ul className="flex space-x-4 md:space-x-8 font-semibold">
-            {/* Only Home and Contact links */}
-            {['home', 'contact'].map((section) => (
-              <li key={section}>
-                <button
-                  onClick={() => scrollToSection(section)}
-                  className={`capitalize text-lg transition-all duration-300 ${
-                    activeSection === section ? 'text-[#000000] border-b-2 border-[#000000]' : 'text-gray-600 hover:text-[#000000]'
-                  } focus:outline-none`}
-                >
-                  {section}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      {/* Glassmorphic Floating Bottom Navbar with Animations + Tooltips */}
+      <header className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-xl shadow-lg rounded-full px-4 py-2 flex space-x-4 items-center z-50 border border-white/20 transition-all duration-300 hover:px-10 hover:py-3 hover:space-x-6">
+        {Object.keys(sectionRefs).map((section) => (
+          <div key={section} className="relative group">
+            <button
+              onClick={() => scrollToSection(section)}
+              className={`transition-transform transform text-xl ${activeSection === section ? 'text-black scale-110 drop-shadow-[0_0_6px_rgba(0,0,0,0.7)]' : 'text-black hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.9)]'}`}
+            >
+              {icons[section]}
+            </button>
+            {/* Tooltip */}
+            <span className="absolute bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 text-sm text-white bg-black/80 rounded invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 delay-2000 transform group-hover:-translate-y-1 whitespace-nowrap">
+              {section.charAt(0).toUpperCase() + section.slice(1)}
+            </span>
+          </div>
+        ))}
+
+        {/* Horizontal line separator */}
+        <div className="h-6 w-px bg-white/30 mx-2"></div>
+
+        {/* External Links with Tooltip */}
+        <div className="relative group">
+          <a
+            href="https://github.com/zaidnfs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-black hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] text-xl transition-transform"
+          >
+            <i className="fab fa-github"></i>
+          </a>
+          <span className="absolute bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 text-sm text-white bg-black/80 rounded invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 delay-2000 transform group-hover:-translate-y-1 whitespace-nowrap">
+            GitHub
+          </span>
+        </div>
+
+        <div className="relative group">
+          <a
+            href="https://www.linkedin.com/in/zaidalam-cloud-ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-black hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] text-xl transition-transform"
+          >
+            <i className="fab fa-linkedin"></i>
+          </a>
+          <span className="absolute bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 text-sm text-white bg-black/80 rounded invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 delay-2000 transform group-hover:-translate-y-1 whitespace-nowrap">
+            LinkedIn
+          </span>
+        </div>
       </header>
 
       <main className="relative z-10">
@@ -187,7 +228,7 @@ const App = () => {
             {/* Introduction Section */}
             <div className="">
               <h3 className="text-3xl font-semibold mb-[76px]">Introduction:</h3>
-              <div className={`h-px bg-[#ffffff] ${sectionVisibility.home ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.1s' }}></div> {/* Thick line */}
+              <div className={`h-px bg-[#ffffff] ${sectionVisibility.home ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.1s' }}></div> {/* Thin line */}
               <p className="text-base leading-snug my-8 font-semibold">
                 Welcome to my online profile, where ambition and technology go hand in hand. Dive into my journey in Cloud Computing and Artificial Intelligence, and see how I turn ideas into tangible results.
               </p>
@@ -210,7 +251,7 @@ const App = () => {
               src="https://raw.githubusercontent.com/zaidnfs/My-Portfolio/refs/heads/main/public/image/White%20desk%20with%20pen%2C%20notebook%20and%20laptop.jpg"
               alt="Zaid's Portrait"
               className="w-full h-full object-cover"
-              Object-fit
+              // Removed invalid JSX prop: Object-fit
             />
           </div>
         </section>
@@ -230,7 +271,8 @@ const App = () => {
               Currently, I am focused on gaining real-world experience and am actively looking for internship opportunities where I can apply my knowledge, collaborate with experienced professionals, and grow as a developer. My passion lies in building scalable, intelligent solutions and embracing every opportunity to learn something new.
             </p>
             <p className="text-base leading-snug">
-              Outside of my technical work, I enjoy exploring different cultures and languages, and I am currently studying Japanese to broaden my global career opportunities.            </p>
+              Outside of my technical work, I enjoy exploring different cultures and languages, and I am currently studying Japanese to broaden my global career opportunities.
+            </p>
           </div>
         </section>
 
@@ -244,7 +286,6 @@ const App = () => {
               <h3 className="text-lg font-semibold py-4 flex items-center">
                 <i className="fas fa-cloud mr-2"></i> Cloud & DevOps
               </h3>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
               <ul className="list-disc list-inside text-base leading-snug space-y-2 mt-4">
                 <li>AWS (EC2, S3, IAM)</li>
                 <li>Google Cloud Platform (Vertex AI Prompt Design)</li>
@@ -261,7 +302,6 @@ const App = () => {
               <h3 className="text-lg font-semibold py-4 flex items-center">
                 <i className="fas fa-laptop-code mr-2"></i> Software Development & Programming
               </h3>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.2s' }}></div> {/* Thin bottom border */}
               <ul className="list-disc list-inside text-base leading-snug space-y-2 mt-4">
                 <li>Golang, Python, JavaScript, C, C++</li>
                 <li>React.js, Node.js, Express.js</li>
@@ -277,7 +317,6 @@ const App = () => {
               <h3 className="text-lg font-semibold py-4 flex items-center">
                 <i className="fas fa-brain mr-2"></i> Artificial Intelligence & Emerging Tech
               </h3>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.skills ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.7s' }}></div> {/* Thin bottom border */}
               <ul className="list-disc list-inside text-base leading-snug space-y-2 mt-4">
                 <li>Machine Learning (IBM Machine Learning Certificate)</li>
                 <li>Prompt Design in Vertex AI (Google Cloud)</li>
@@ -307,8 +346,7 @@ const App = () => {
             {/* Project Card 1 */}
             <div className="mb-8">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.5s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-2 pb-2">HTTP Server from Scratch <span className="font-normal text-base">[ Go, TCP Sockets ]</span></h3>  {/* Adjusted padding */}
-              <div className={`h-px bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
+              <h3 className="text-lg font-semibold pt-2 pb-2">HTTP Server from Scratch <span className="font-normal text-base">[ Go, TCP Sockets ]</span></h3>
               <p className="text-base leading-snug mb-4 mt-4">
                 Developed a custom HTTP server from scratch in Go, handling raw TCP connections without using the net/http package. Implemented manual HTTP request parsing, GET/POST handling, dynamic routing, and concurrency with goroutines to strengthen networking fundamentals.
               </p>
@@ -322,8 +360,7 @@ const App = () => {
             {/* Project Card 2 */}
             <div className="mb-8">
               <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-2 pb-2">Simple Blog Web App <span className="font-normal text-base">[ React, Node.js, MongoDB, Vercel ]</span></h3> {/* Adjusted padding */}
-              <div className={`h-px bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
+              <h3 className="text-lg font-semibold pt-2 pb-2">Simple Blog Web App <span className="font-normal text-base">[ React, Node.js, MongoDB, Vercel ]</span></h3>
               <p className="text-base leading-snug mb-4 mt-4">
                 Built a full-stack blog platform using React (frontend), Node.js and Express.js (backend). Implemented MongoDB as the primary database for storing blog posts and user data. Deployed the application on Vercel, ensuring seamless frontend and backend integration.
               </p>
@@ -336,14 +373,12 @@ const App = () => {
                 </a>
               </div>
             </div>
-            {/* Add more project cards as needed */}
-            {/* Project Card 2 */}
+            {/* Project Card 3 */}
             <div className="mb-8">
-              <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-2 pb-2">GoLang Mini Projects <span className="font-normal text-base">[Go]</span></h3> {/* Adjusted padding */}
-              <div className={`h-px bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
+              <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.5s' }}></div> {/* Thick top border */}
+              <h3 className="text-lg font-semibold pt-2 pb-2">GoLang Mini Projects <span className="font-normal text-base">[Go]</span></h3>
               <p className="text-base leading-snug mb-4 mt-4">
-                 Created small-scale projects in Go demonstrating file I/O, structs, arrays, slices, and maps. Published code on GitHub as part of a self-learning initiative.
+                  Created small-scale projects in Go demonstrating file I/O, structs, arrays, slices, and maps. Published code on GitHub as part of a self-learning initiative.
               </p>
               <div className="flex space-x-4">
                 <a href="https://github.com/zaidnfs/Golang_Practice" target="_blank" rel="noopener noreferrer" className="text-[#000000] hover:text-gray-700 transition-colors flex items-center">
@@ -353,9 +388,8 @@ const App = () => {
             </div>
             {/* Project Card 4 */}
             <div className="mb-8">
-              <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1s' }}></div> {/* Thick top border */}
-              <h3 className="text-lg font-semibold pt-2 pb-2">AI-Powered Image Analysis App <span className="font-normal text-base">[Google Cloud, Vertex AI, Gemini, Imagen]</span></h3> {/* Adjusted padding */}
-              <div className={`h-px bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
+              <div className={`h-1 bg-[#000000] ${sectionVisibility.projects ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '2s' }}></div> {/* Thick top border */}
+              <h3 className="text-lg font-semibold pt-2 pb-2">AI-Powered Image Analysis App <span className="font-normal text-base">[Google Cloud, Vertex AI, Gemini, Imagen]</span></h3>
               <p className="text-base leading-snug mb-4 mt-4">
                 Experimented with Google Cloud’s Vertex AI, Gemini, and Imagen to build a proof-of-concept AI app that generates and interprets images based on natural language prompts.
               </p>
@@ -372,9 +406,7 @@ const App = () => {
               <div className={`h-1 bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.5s' }}></div> {/* Thick top border */}
               <h4 className="text-lg font-semibold text-[#000000] pt-4 pb-4 flex justify-between items-baseline">
                 Simple Blog Application
-                <a href="https://simple-blog-frontend-2ujgq0jnz-md-zaid-alams-projects-d5d0e8eb.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-[#000000] hover:text-gray-700 transition-colors flex items-center"><i class="fas fa-external-link-alt mr-1"></i> Live Demo</a>
               </h4>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '0.7s' }}></div> {/* Thin bottom border */}
               <p className="text-base leading-snug mb-4 mt-4">
                 Built a full-stack blog platform using React, Node.js, MongoDB, and PostgreSQL. Implemented authentication, post management, and responsive design.
               </p>
@@ -386,7 +418,6 @@ const App = () => {
               <h4 className="text-lg font-semibold text-[#000000] pt-4 pb-4 flex justify-between items-baseline">
                 AWS Web App Deployment
               </h4>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.2s' }}></div> {/* Thin bottom border */}
               <p className="text-base leading-snug mb-4 mt-4">
                 Deployed a simple web application on AWS EC2 with Nginx for reverse proxy and Vercel for frontend hosting. Configured IAM roles for secure access.
               </p>
@@ -397,9 +428,7 @@ const App = () => {
               <div className={`h-1 bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.5s' }}></div> {/* Thick top border */}
               <h4 className="text-lg font-semibold text-[#000000] pt-4 pb-4 flex justify-between items-baseline">
                 Personal Portfolio Website
-                <a href="https://zaidnfs.github.io/My-Portfolio/" target="_blank" rel="noopener noreferrer" class="text-[#000000] hover:text-gray-700 transition-colors flex items-center"><i class="fas fa-external-link-alt mr-1"></i> Live Demo</a>
               </h4>
-              <div className={`h-px bg-[#000000] ${sectionVisibility.experience ? 'w-full animate-line-load' : 'w-0'}`} style={{ animationDelay: '1.7s' }}></div> {/* Thin bottom border */}
               <p className="text-base leading-snug mb-4 mt-4">
                 Designed and developed a personal portfolio website using React.js and Tailwind CSS to showcase projects, skills, and resume. Integrated Formspree for a fully functional contact form, and optimized the site for responsiveness, smooth navigation, and animated transitions.
               </p>
@@ -421,52 +450,41 @@ const App = () => {
           <div className="md:w-1/2 bg-[#ffffff] flex flex-col justify-start p-8 md:p-16 text-left text-[#000000]">
             {/* Education Entry 1 */}
             <div className="mb-6">
-  <div
-    className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
-    style={{ animationDelay: '0.5s' }}
-  ></div>
-  <h4 className="text-lg font-semibold py-2">
-    Bachelor of Technology – Computer Science & Engineering
-  </h4>
-  <div
-    className={`h-px bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
-    style={{ animationDelay: '0.7s' }}
-  ></div>
-  <p className="text-base leading-snug mt-4 font-semibold">
-    Integral University, Lucknow, Uttar Pradesh
-  </p>
-          <ul className="list-disc list-inside text-sm mt-2 space-y-2">
-             <li>Specialization in Cloud Computing & Artificial Intelligence.</li>
-             <li>
-              Relevant Coursework: Data Structures, Software Methodology, Algorithm
-              Analysis, Database Management, Artificial Intelligence, Internet
-              Technology.
-             </li>
-             <li>Actively building projects and exploring emerging tech trends.</li>
-           </ul>
-        </div>
+              <div
+                className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
+                style={{ animationDelay: '0.5s' }}
+              ></div>
+              <h4 className="text-lg font-semibold py-2">
+                Bachelor of Technology – Computer Science & Engineering
+              </h4>
+              <p className="text-base leading-snug mt-4 font-semibold">
+                Integral University, Lucknow, Uttar Pradesh
+              </p>
+              <ul className="list-disc list-inside text-sm mt-2 space-y-2">
+                <li>Specialization in Cloud Computing & Artificial Intelligence.</li>
+                <li>
+                  Relevant Coursework: Data Structures, Software Methodology, Algorithm
+                  Analysis, Database Management, Artificial Intelligence, Internet
+                  Technology.
+                </li>
+                <li>Actively building projects and exploring emerging tech trends.</li>
+              </ul>
+            </div>
             {/* Education Entry 2 (Example - add more as needed) */}
             <div className="mb-6">
-  <div
-    className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
-    style={{ animationDelay: '0.9s' }}
-  ></div>
-  <h4 className="text-lg font-semibold py-2">
-    Professional Certifications & Online Courses
-  </h4>
-  <div
-    className={`h-px bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
-    style={{ animationDelay: '1.1s' }}
-  ></div>
-  <ul className="list-disc list-inside text-sm mt-2 space-y-2">
-    <li>Data Structures & Algorithms – Udemy</li>
-    <li>Full-Stack Web Development – Udemy</li>
-    <li>Prompt Engineering – Udemy</li>
-  </ul>
-</div>
-
-            {/* Education Entry 3 (Example - add more as needed) */}
-            
+              <div
+                className={`h-1 bg-[#000000] ${sectionVisibility.education ? 'w-full animate-line-load' : 'w-0'}`}
+                style={{ animationDelay: '0.9s' }}
+              ></div>
+              <h4 className="text-lg font-semibold py-2">
+                Professional Certifications & Online Courses
+              </h4>
+              <ul className="list-disc list-inside text-sm mt-2 space-y-2">
+                <li>Data Structures & Algorithms – Udemy</li>
+                <li>Full-Stack Web Development – Udemy</li>
+                <li>Prompt Engineering – Udemy</li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -482,7 +500,7 @@ const App = () => {
           </div>
           {/* Right Column: Text Content */}
           <div className="md:w-1/2 bg-[#000000] flex flex-col justify-start p-8 md:p-16 text-left text-[#ffffff]">
-            <h2 className="text-4xl md:text-5xl font-semibold leading-tight mb-[200px]">Reach Out for Opportunities</h2>
+            <h2 className="text-4xl md:text-5xl font-semibold leading-tight mb-16">Reach Out for Opportunities</h2> {/* Adjusted margin-bottom */}
             <form action="https://formspree.io/f/xyzpndly" method="POST" className="space-y-6 mb-8">
               <div>
                 <label htmlFor="firstName" className="block text-[#ffffff] text-base font-medium mb-2">First name *</label>
