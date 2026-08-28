@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Check, Eraser, Pencil, Trash2 } from 'lucide-react';
 
-// The dotted-paper background. Two layers:
-//   1. paper canvas — a sheet of dot-grid paper, repainted only on resize
-//   2. sketch canvas — free-drawing surface, active only in doodle mode
-// The toolbar lives outside the aria-hidden wrapper so it stays reachable.
+// The dotted-paper background. Three layers:
+//   1. paper canvas — a sheet of dot-grid paper, repainted only on resize (z-0)
+//   2. sketch canvas — free-drawing surface; lifts ABOVE the content stack
+//      (z-30) while doodle mode is active so page content can never swallow
+//      pointer events, and drops back behind the content (z-0) when done
+//   3. toolbar — fixed bottom-right, always on top (z-50)
 
 const DOT_GAP = 24;
 const INK = '47, 42, 36';
@@ -159,21 +161,25 @@ export default function PaperCanvas() {
       <div aria-hidden="true" className="fixed inset-0 z-0">
         <canvas ref={paperRef} className="absolute inset-0 h-full w-full" />
         <div className="grain pointer-events-none absolute inset-0" />
-        <canvas
-          ref={sketchRef}
-          className="absolute inset-0 h-full w-full"
-          style={{
-            touchAction: doodling ? 'none' : 'auto',
-            cursor: doodling ? (tool === 'eraser' ? 'cell' : 'crosshair') : 'default',
-            pointerEvents: doodling ? 'auto' : 'none',
-          }}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endStroke}
-          onPointerLeave={endStroke}
-          onPointerCancel={endStroke}
-        />
       </div>
+
+      {/* Sketch layer is a sibling of the z-0 wrapper (not a child) so its own
+          z-index can rise above the z-10 content stack while drawing. */}
+      <canvas
+        ref={sketchRef}
+        className="fixed inset-0 h-full w-full"
+        style={{
+          zIndex: doodling ? 30 : 0,
+          touchAction: doodling ? 'none' : 'auto',
+          cursor: doodling ? (tool === 'eraser' ? 'cell' : 'crosshair') : 'default',
+          pointerEvents: doodling ? 'auto' : 'none',
+        }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endStroke}
+        onPointerLeave={endStroke}
+        onPointerCancel={endStroke}
+      />
 
       <div className="fixed bottom-5 right-5 z-50">
         {!doodling ? (
