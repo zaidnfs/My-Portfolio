@@ -112,7 +112,7 @@ export default function App() {
           }}
         />
       )}
-      {dark && <NightLamp />}
+      <NightLamp lit={dark} />
       <div className="relative z-10">
         <Navbar route={route} dark={dark} onToggleTheme={() => setDark((v) => !v)} />
         {projectMatch ? (

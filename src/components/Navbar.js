@@ -1,4 +1,4 @@
-import { Lightbulb, Sun } from 'lucide-react';
+import { LampCeiling } from 'lucide-react';
 import { navigate } from '../router/useHashRoute';
 
 const LINKS = [
@@ -53,10 +53,14 @@ export default function Navbar({ route, dark = false, onToggleTheme }) {
             onClick={onToggleTheme}
             aria-pressed={dark}
             aria-label={dark ? 'Switch back to daylight' : 'Switch to night reading'}
-            title={dark ? 'Back to daylight' : 'Light the lamp'}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 bg-white/70 text-ink shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
+            title={dark ? 'Lights off — back to daylight' : 'Lights on — night reading'}
+            className={`flex h-9 w-9 items-center justify-center rounded-full border shadow-sm transition hover:-translate-y-0.5 ${
+              dark
+                ? 'border-mustard/60 bg-mustard/15 text-mustard hover:bg-mustard/25'
+                : 'border-ink/15 bg-white/70 text-ink hover:bg-white'
+            }`}
           >
-            {dark ? <Sun size={16} /> : <Lightbulb size={16} />}
+            <LampCeiling size={16} />
           </button>
         </div>
       </div>
