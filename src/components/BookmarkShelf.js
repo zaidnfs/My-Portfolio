@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight, CalendarDays, Folders } from 'lucide-react';
+import { MarginDoodle, OpenBookDoodle, ProjectDoodle } from './Doodles';
 import { ACCENTS, projects } from '../data/projects';
 import { navigate } from '../router/useHashRoute';
 
@@ -13,7 +14,10 @@ export default function BookmarkShelf() {
   const accent = ACCENTS[active.accent];
 
   return (
-    <section id="bookshelf" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-16 sm:px-6">
+    <section id="bookshelf" className="relative mx-auto max-w-3xl scroll-mt-24 px-4 py-16 sm:px-6">
+      <MarginDoodle side="right" caption="every ribbon is a chapter…">
+        <OpenBookDoodle className="h-32 w-32" />
+      </MarginDoodle>
       <div className="text-center">
         <p className="font-hand text-xl text-terracotta">~ Pull a Ribbon ~</p>
         <h2 className="mt-1 font-hand text-4xl font-bold text-ink sm:text-5xl">
@@ -62,7 +66,11 @@ export default function BookmarkShelf() {
         {/* The book block the ribbons hang from */}
         <div className="rounded-b-2xl border border-t-0 border-ink/15 bg-paperdark/70 p-1 shadow-[0_18px_40px_-18px_rgba(47,42,36,0.35)]">
           <div className="h-2.5 rounded-t-xl bg-ink/10" aria-hidden="true" />
-          <div key={active.slug} className="card-in p-5 sm:p-8">
+          <div key={active.slug} className="card-in relative p-5 sm:p-8">
+            <ProjectDoodle
+              name={active.doodle}
+              className="absolute right-4 top-4 h-14 w-14 rotate-6 text-ink/40 sm:right-8 sm:top-6"
+            />
             <div className="flex flex-wrap items-center gap-2">
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-hand text-lg ${accent.chip}`}

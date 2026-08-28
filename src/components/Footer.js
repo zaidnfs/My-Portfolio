@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail, MapPin, Phone, Twitter } from 'lucide-react';
+import { EnvelopePlaneDoodle, MarginDoodle } from './Doodles';
 import { profile } from '../data/projects';
 
 export default function Footer() {
@@ -17,7 +18,10 @@ export default function Footer() {
           strokeWidth="1.6"
         />
       </svg>
-      <div className="mx-auto max-w-3xl px-4 pb-12 pt-8 text-center sm:px-6">
+      <div className="relative mx-auto max-w-3xl px-4 pb-12 pt-8 text-center sm:px-6">
+        <MarginDoodle side="right" caption="off it goes…">
+          <EnvelopePlaneDoodle className="h-32 w-32" />
+        </MarginDoodle>
         <p className="font-hand text-3xl text-ink">Write back, won&rsquo;t you?</p>
         <div className="mx-auto mt-6 flex max-w-md flex-col items-center gap-3">
           <a

@@ -17,6 +17,7 @@ src/
   router/useHashRoute.js ← hash router hook (#/ and #/project/<slug>)
   components/
     PaperCanvas.js       ← dotted-paper background + optional doodle mode
+    Doodles.js           ← hand-drawn margin sketches with captions
     Navbar.js            ← sticky paper-tab navigation
     Hero.js              ← Chapter One: overview & contact
     NowChapter.js        ← featured "currently working on" card

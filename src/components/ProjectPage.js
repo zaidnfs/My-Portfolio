@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { ACCENTS, projects } from '../data/projects';
 import { navigate } from '../router/useHashRoute';
+import { MarginDoodle, ProjectDoodle } from './Doodles';
 import { scrollToSection } from './Navbar';
 
 function ChapterHeading({ icon: Icon, title, accent }) {
@@ -56,7 +57,10 @@ export default function ProjectPage({ slug }) {
   const accent = ACCENTS[project.accent];
 
   return (
-    <main className="mx-auto max-w-3xl px-4 pb-20 pt-10 sm:px-6">
+    <main className="relative mx-auto max-w-3xl px-4 pb-20 pt-10 sm:px-6">
+      <MarginDoodle side="left" caption={project.doodleCaption}>
+        <ProjectDoodle name={project.doodle} className="h-32 w-32" />
+      </MarginDoodle>
       <button
         type="button"
         onClick={() => {

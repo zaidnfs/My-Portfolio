@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { MarginDoodle, PencilDoodle } from './Doodles';
 import { profile } from '../data/projects';
 
 function ContactChip({ href, icon: Icon, label, external = false }) {
@@ -17,7 +18,10 @@ function ContactChip({ href, icon: Icon, label, external = false }) {
 export default function Hero() {
   return (
     <section id="story" className="scroll-mt-24">
-      <div className="mx-auto flex max-w-3xl flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-20">
+      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-20">
+        <MarginDoodle side="right" caption="once upon a commit…">
+          <PencilDoodle className="h-32 w-32" />
+        </MarginDoodle>
         <p className="font-hand text-xl text-terracotta">~ Chapter One ~</p>
         <h1 className="mt-2 font-hand text-6xl font-bold leading-tight text-ink sm:text-7xl">
           {profile.name}

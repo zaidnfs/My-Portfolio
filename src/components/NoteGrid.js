@@ -1,4 +1,10 @@
 import { BadgeCheck, GraduationCap, Trophy } from 'lucide-react';
+import {
+  GradCapDoodle,
+  MarginDoodle,
+  PencilRulerDoodle,
+  RosetteBadgeDoodle,
+} from './Doodles';
 import { certifications, education, skillGroups } from '../data/projects';
 
 const TAPES = ['bg-mustard/30', 'bg-sage/30', 'bg-terracotta/25', 'bg-dustyblue/30'];
@@ -29,7 +35,10 @@ function Note({ tapeIndex = 0, children }) {
 
 export function SkillsSection() {
   return (
-    <section id="notes" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-16 sm:px-6">
+    <section id="notes" className="relative mx-auto max-w-3xl scroll-mt-24 px-4 py-16 sm:px-6">
+      <MarginDoodle side="left" caption="tools of the trade…">
+        <PencilRulerDoodle className="h-32 w-32" />
+      </MarginDoodle>
       <SectionHeading
         kicker="~ Marginalia ~"
         title="Notes, Skills & Learnings"
@@ -58,7 +67,10 @@ export function SkillsSection() {
 
 export function EducationSection() {
   return (
-    <section id="education" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-10 sm:px-6">
+    <section id="education" className="relative mx-auto max-w-3xl scroll-mt-24 px-4 py-10 sm:px-6">
+      <MarginDoodle side="right" caption="still learning…">
+        <GradCapDoodle className="h-32 w-32" />
+      </MarginDoodle>
       <SectionHeading kicker="~ The Study Hall ~" title="Education" />
       <div className="mt-10">
         <Note tapeIndex={2}>
@@ -87,7 +99,10 @@ export function EducationSection() {
 
 export function CertificationsSection() {
   return (
-    <section id="certifications" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-10 sm:px-6">
+    <section id="certifications" className="relative mx-auto max-w-3xl scroll-mt-24 px-4 py-10 sm:px-6">
+      <MarginDoodle side="left" caption="stamped & verified…">
+        <RosetteBadgeDoodle className="h-32 w-32" />
+      </MarginDoodle>
       <SectionHeading kicker="~ Stamps & Badges ~" title="Certifications & Training" />
       <div className="mt-10 grid gap-7 sm:grid-cols-2">
         {certifications.map((cert, i) => (

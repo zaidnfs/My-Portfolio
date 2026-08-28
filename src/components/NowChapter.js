@@ -1,4 +1,5 @@
 import { Database, ShieldCheck, Workflow, Zap, ArrowRight } from 'lucide-react';
+import { DatabaseDoodle, MarginDoodle } from './Doodles';
 import { nowStatus } from '../data/projects';
 import { navigate } from '../router/useHashRoute';
 
@@ -24,7 +25,10 @@ const HIGHLIGHTS = [
 export default function NowChapter() {
   return (
     <section id="now" className="scroll-mt-24">
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <div className="relative mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <MarginDoodle side="left" caption="schemas & safeguards…">
+          <DatabaseDoodle className="h-32 w-32" />
+        </MarginDoodle>
         <div className="text-center">
           <p className="font-hand text-xl text-sage">~ The Chapter in Progress ~</p>
           <h2 className="mt-1 font-hand text-4xl font-bold text-ink sm:text-5xl">

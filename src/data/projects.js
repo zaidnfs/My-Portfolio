@@ -77,6 +77,8 @@ export const projects = [
     role: null,
     date: 'January 2026',
     accent: 'terracotta',
+    doodle: 'rocket',
+    doodleCaption: '24 hours on the clock…',
     source: 'https://github.com/zaidnfs',
     tags: ['Django', 'Python', 'CRUD', 'RBAC'],
     summary:
@@ -158,6 +160,8 @@ export const projects = [
     role: 'Lead Full-Stack Developer & Architect (Intern)',
     date: 'Jan 2026 — Present',
     accent: 'sage',
+    doodle: 'database',
+    doodleCaption: 'schemas & safeguards…',
     source: null,
     tags: ['Python', 'Django', 'PostgreSQL', 'HTMX', 'Tailwind CSS'],
     summary:
@@ -240,6 +244,8 @@ export const projects = [
     role: null,
     date: 'August 2025',
     accent: 'dustyblue',
+    doodle: 'chat',
+    doodleCaption: 'teaching BERT feelings…',
     source: 'https://github.com/zaidnfs',
     tags: ['Python', 'BERT', 'HuggingFace', 'Docker', 'Kubernetes', 'CI/CD'],
     summary:
@@ -328,6 +334,8 @@ export const projects = [
     role: null,
     date: 'June 2025',
     accent: 'mustard',
+    doodle: 'server',
+    doodleCaption: 'raw sockets, no training wheels…',
     source: 'https://github.com/zaidnfs',
     tags: ['Go', 'TCP/IP', 'Sockets', 'Goroutines', 'Concurrency'],
     summary:

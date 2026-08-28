@@ -9,6 +9,7 @@
 
   body {
     @apply bg-paper font-book text-ink antialiased;
+    overflow-x: hidden;
   }
 
   ::selection {
