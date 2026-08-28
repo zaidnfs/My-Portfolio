@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 // The vintage pendant lamp hangs from the top-right corner in BOTH themes —
 // lights off in daylight (a bronze fixture sketched in ink), glowing during
 // night reading (`lit`), with the cone and vignette only while lit. Purely
@@ -6,7 +8,17 @@
 // corner instead, swap the lamp's right-* offsets for left-* and mirror the
 // cone/vignette gradient positions.
 
-export default function NightLamp({ lit = false }) {
+export default function NightLamp({ lit = false, onToggle }) {
+  const [kicking, setKicking] = useState(false);
+
+  // flicking the lamp toggles the theme and gives the fixture a playful swing
+  const flick = () => {
+    if (onToggle) onToggle();
+    setKicking(false);
+    requestAnimationFrame(() => setKicking(true));
+    window.setTimeout(() => setKicking(false), 950);
+  };
+
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[5]">
       {lit && (
@@ -22,7 +34,13 @@ export default function NightLamp({ lit = false }) {
 
       {/* a vintage pendant lamp, hanging from the top-right corner, swaying gently */}
       <div className="absolute right-[6vw] top-0 sm:right-[9vw] lg:right-[12vw]">
-        <div className="lamp-sway flex flex-col items-center">
+        <div
+          className={`lamp-sway lamp-toy pointer-events-auto flex flex-col items-center ${
+            lit ? 'lamp-lit' : ''
+          } ${kicking ? 'lamp-kick' : ''}`}
+          onClick={flick}
+          title="Flick the lights"
+        >
           <div className="h-3 w-px bg-ink/25" />
           <svg
             width="120"
@@ -64,13 +82,11 @@ export default function NightLamp({ lit = false }) {
               <ellipse cx="60" cy="51" rx="5" ry="2.5" />
             </g>
 
-            {/* warm glow around the bulb — only while the lamp is lit */}
-            {lit && (
-              <>
-                <circle cx="60" cy="128" r="48" fill="url(#lamp-bulb-glow)" opacity="0.5" />
-                <circle cx="60" cy="128" r="32" fill="url(#lamp-bulb-glow)" />
-              </>
-            )}
+            {/* warm glow around the bulb — bright at night, a tease on hover */}
+            <g className="lamp-glow">
+              <circle cx="60" cy="128" r="48" fill="url(#lamp-bulb-glow)" opacity="0.5" />
+              <circle cx="60" cy="128" r="32" fill="url(#lamp-bulb-glow)" />
+            </g>
 
             {/* finial knob joining chain to shade */}
             <circle
@@ -118,10 +134,10 @@ export default function NightLamp({ lit = false }) {
 
             {/* Edison bulb — glowing at night, pale glass in daylight */}
             <circle
+              className="lamp-bulb"
               cx="60"
               cy="128"
               r="9"
-              fill={lit ? 'rgb(255 218 150)' : 'rgb(223 213 196)'}
               stroke={lit ? 'rgba(255, 196, 120, 0.85)' : 'currentColor'}
               strokeOpacity={lit ? undefined : 0.5}
               strokeWidth="1.5"

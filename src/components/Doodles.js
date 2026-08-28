@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 // Hand-drawn style margin doodles. Every doodle is a stroke-based SVG in a
 // 96x96 box, drawn with wobbly paths so it reads as a pencil sketch on the
 // paper. Inner <g> accents pick up their own text color (terracotta, sage,
@@ -265,6 +267,14 @@ export function EnvelopePlaneDoodle({ className = '' }) {
 // sections keeps the page feeling hand-annotated; hidden below xl so smaller
 // screens stay clean and nothing ever overflows.
 export function MarginDoodle({ side = 'left', caption, children, className = '' }) {
+  const [hopping, setHopping] = useState(false);
+
+  const hop = () => {
+    setHopping(false);
+    requestAnimationFrame(() => setHopping(true));
+    window.setTimeout(() => setHopping(false), 650);
+  };
+
   return (
     <div
       aria-hidden="true"
@@ -272,10 +282,18 @@ export function MarginDoodle({ side = 'left', caption, children, className = '' 
         side === 'left' ? '-left-40' : '-right-40'
       } ${className}`}
     >
-      <div className={`flex flex-col items-center gap-1 ${side === 'left' ? '-rotate-3' : 'rotate-3'}`}>
-        {children}
+      <div
+        className={`doodle-toy pointer-events-auto flex flex-col items-center gap-1 ${
+          side === 'left' ? '-rotate-3' : 'rotate-3'
+        }`}
+        onClick={hop}
+        title="Give it a poke"
+      >
+        <span className={`doodle-art block ${hopping ? 'doodle-hop-now' : ''}`}>{children}</span>
         {caption && (
-          <p className="text-center font-hand text-xl leading-tight text-inksoft/75">{caption}</p>
+          <p className="doodle-caption text-center font-hand text-xl leading-tight text-inksoft/75">
+            {caption}
+          </p>
         )}
       </div>
     </div>

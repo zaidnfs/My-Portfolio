@@ -33,6 +33,24 @@ html.dark {
   --c-mustard: 230 181 94;
 }
 
+/* A pencil for a cursor — the tip is the hotspot. The sketch canvas keeps its
+   precision crosshair while actually drawing. */
+html {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cg stroke='%232f2a24' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M4 22l1.8-5.4L16 6.4l3.6 3.6-10.2 10.2L4 22z' fill='%23d9a441'/%3E%3Cpath d='M5.8 16.6l3.6 3.6' fill='none'/%3E%3C/g%3E%3Cpath d='M16 6.4l3.6 3.6-1.8 1.8-3.6-3.6z' fill='%23c97b5d' stroke='%232f2a24' stroke-width='1.2'/%3E%3Cpath d='M4 22l1.3-3.6 2.3 2.3-3.6 1.3z' fill='%232f2a24'/%3E%3C/svg%3E")
+    4 22,
+    auto;
+}
+
+html.dark {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cg stroke='%23f2e9d8' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M4 22l1.8-5.4L16 6.4l3.6 3.6-10.2 10.2L4 22z' fill='%23d9a441'/%3E%3Cpath d='M5.8 16.6l3.6 3.6' fill='none'/%3E%3C/g%3E%3Cpath d='M16 6.4l3.6 3.6-1.8 1.8-3.6-3.6z' fill='%23c97b5d' stroke='%23f2e9d8' stroke-width='1.2'/%3E%3Cpath d='M4 22l1.3-3.6 2.3 2.3-3.6 1.3z' fill='%23f2e9d8'/%3E%3C/svg%3E")
+    4 22,
+    auto;
+}
+
+* {
+  cursor: inherit;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -133,6 +151,118 @@ html.dark {
   animation: lamp-sway 5.5s ease-in-out infinite;
 }
 
+/* The signature — hover and a ripple runs through the letters */
+.name-letter {
+  display: inline-block;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+.name-letter:hover {
+  transform: translateY(-0.18em) rotate(-6deg);
+  color: rgb(var(--c-terracotta));
+}
+
+@keyframes letter-wave {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  35% {
+    transform: translateY(-0.3em) rotate(-6deg);
+  }
+  70% {
+    transform: translateY(0.06em) rotate(3deg);
+  }
+}
+
+.hero-name:hover .name-letter {
+  animation: letter-wave 0.7s ease;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* Margin doodles wake up when you poke them */
+@keyframes doodle-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  30% {
+    transform: rotate(-6deg) scale(1.07);
+  }
+  65% {
+    transform: rotate(5deg) scale(1.05);
+  }
+}
+
+@keyframes doodle-hop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-12px) scale(1.1) rotate(-7deg);
+  }
+  70% {
+    transform: translateY(0) scale(0.96) rotate(5deg);
+  }
+}
+
+.doodle-toy:hover .doodle-art {
+  animation: doodle-wiggle 0.55s ease-in-out;
+}
+
+.doodle-toy:hover .doodle-caption {
+  color: rgb(var(--c-terracotta));
+}
+
+.doodle-art.doodle-hop-now {
+  animation: doodle-hop 0.6s ease !important;
+}
+
+/* The lamp reacts to attention */
+.lamp-glow {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.lamp-lit .lamp-glow,
+.lamp-toy:hover .lamp-glow {
+  opacity: 1;
+}
+
+.lamp-bulb {
+  fill: rgb(223 213 196);
+  transition: fill 0.4s ease;
+}
+
+.lamp-lit .lamp-bulb,
+.lamp-toy:hover .lamp-bulb {
+  fill: rgb(255 218 150);
+}
+
+@keyframes lamp-kick {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(9deg);
+  }
+  45% {
+    transform: rotate(-7deg);
+  }
+  70% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.lamp-kick {
+  animation: lamp-kick 0.9s ease-in-out !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -141,7 +271,11 @@ html.dark {
   .pulse-dot {
     animation: none;
   }
-  .lamp-sway {
+  .lamp-sway,
+  .lamp-kick,
+  .doodle-toy:hover .doodle-art,
+  .doodle-art.doodle-hop-now,
+  .hero-name:hover .name-letter {
     animation: none;
   }
 }

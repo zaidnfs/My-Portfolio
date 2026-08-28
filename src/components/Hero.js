@@ -16,6 +16,8 @@ function ContactChip({ href, icon: Icon, label, external = false }) {
 }
 
 export default function Hero() {
+  let letterIndex = -1;
+
   return (
     <section id="story" className="scroll-mt-24">
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-20">
@@ -23,8 +25,24 @@ export default function Hero() {
           <PencilDoodle className="h-32 w-32" />
         </MarginDoodle>
         <p className="font-hand text-xl text-terracotta">~ Chapter One ~</p>
-        <h1 className="mt-2 font-hand text-6xl font-bold leading-tight text-ink sm:text-7xl">
-          {profile.name}
+        <h1
+          className="hero-name mt-2 font-hand text-6xl font-bold leading-tight text-ink sm:text-7xl"
+          aria-label={profile.name}
+          title="Every signature tells a story"
+        >
+          {profile.name.split(' ').map((word, wi, words) => (
+            <span key={`${word}-${wi}`} aria-hidden="true" className="inline-block whitespace-nowrap">
+              {word.split('').map((ch) => {
+                letterIndex += 1;
+                return (
+                  <span key={`${ch}-${letterIndex}`} className="name-letter" style={{ '--i': letterIndex }}>
+                    {ch}
+                  </span>
+                );
+              })}
+              {wi < words.length - 1 && <span>&nbsp;</span>}
+            </span>
+          ))}
         </h1>
         <svg
           viewBox="0 0 220 12"

@@ -43,6 +43,7 @@ export default function App() {
 
   // The lamp pool: while reading at night, find the section nearest the
   // middle of the viewport and pour warm light over exactly that section.
+  const toggleTheme = () => setDark((v) => !v);
   const [litRect, setLitRect] = useState(null);
   useEffect(() => {
     if (!dark) {
@@ -112,9 +113,9 @@ export default function App() {
           }}
         />
       )}
-      <NightLamp lit={dark} />
+      <NightLamp lit={dark} onToggle={toggleTheme} />
       <div className="relative z-10">
-        <Navbar route={route} dark={dark} onToggleTheme={() => setDark((v) => !v)} />
+        <Navbar route={route} dark={dark} onToggleTheme={toggleTheme} />
         {projectMatch ? (
           <ProjectPage slug={projectMatch[1]} />
         ) : (

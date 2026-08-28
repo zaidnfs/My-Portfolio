@@ -69,7 +69,7 @@ export default function BookmarkShelf() {
           <div key={active.slug} className="card-in relative p-5 sm:p-8">
             <ProjectDoodle
               name={active.doodle}
-              className="absolute right-4 top-4 h-14 w-14 rotate-6 text-ink/40 sm:right-8 sm:top-6"
+              className="absolute right-4 top-4 h-14 w-14 rotate-6 text-ink/40 transition-transform duration-300 hover:rotate-12 hover:scale-125 sm:right-8 sm:top-6"
             />
             <div className="flex flex-wrap items-center gap-2">
               <span
