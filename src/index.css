@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================================
+   Theme variables — the daylight paper palette, flipped by `html.dark` for
+   night reading. Tailwind colors read these as RGB triplets (see
+   tailwind.config.js), so every existing opacity modifier keeps working.
+   ========================================================================== */
+:root {
+  --c-paper: 250 246 238;
+  --c-paperdark: 241 233 216;
+  --c-ink: 47 42 36;
+  --c-inksoft: 107 97 86;
+  --c-white: 255 255 255;
+  --c-night: 25 21 16;
+  --c-sage: 143 166 142;
+  --c-terracotta: 201 123 93;
+  --c-dustyblue: 125 147 168;
+  --c-mustard: 217 164 65;
+}
+
+html.dark {
+  --c-paper: 25 21 16;
+  --c-paperdark: 35 29 21;
+  --c-ink: 242 233 216;
+  --c-inksoft: 179 166 143;
+  --c-white: 40 33 25;
+  --c-night: 25 21 16;
+  --c-sage: 154 178 152;
+  --c-terracotta: 219 141 110;
+  --c-dustyblue: 148 170 190;
+  --c-mustard: 230 181 94;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -42,6 +73,15 @@
     opacity: 0.05;
     mix-blend-mode: multiply;
   }
+
+  html.dark .grain {
+    mix-blend-mode: screen;
+    opacity: 0.04;
+  }
+
+  html.dark .paper-card {
+    box-shadow: 0 12px 32px -14px rgba(0, 0, 0, 0.65);
+  }
 }
 
 /* Entrance for bookmark summary cards */
@@ -77,12 +117,31 @@
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
+/* Pendant lamp sway (night reading) */
+@keyframes lamp-sway {
+  0%,
+  100% {
+    transform: rotate(2.4deg);
+  }
+  50% {
+    transform: rotate(-2.4deg);
+  }
+}
+
+.lamp-sway {
+  transform-origin: top center;
+  animation: lamp-sway 5.5s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
   .card-in,
   .pulse-dot {
+    animation: none;
+  }
+  .lamp-sway {
     animation: none;
   }
 }

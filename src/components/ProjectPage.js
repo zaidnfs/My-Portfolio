@@ -57,7 +57,7 @@ export default function ProjectPage({ slug }) {
   const accent = ACCENTS[project.accent];
 
   return (
-    <main className="relative mx-auto max-w-3xl px-4 pb-20 pt-10 sm:px-6">
+    <main id="project-chapter" className="relative mx-auto max-w-3xl px-4 pb-20 pt-10 sm:px-6">
       <MarginDoodle side="left" caption={project.doodleCaption}>
         <ProjectDoodle name={project.doodle} className="h-32 w-32" />
       </MarginDoodle>

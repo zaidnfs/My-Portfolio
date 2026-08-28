@@ -1,3 +1,4 @@
+import { Lightbulb, Sun } from 'lucide-react';
 import { navigate } from '../router/useHashRoute';
 
 const LINKS = [
@@ -13,7 +14,7 @@ export function scrollToSection(id) {
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-export default function Navbar({ route }) {
+export default function Navbar({ route, dark = false, onToggleTheme }) {
   const go = (id) => {
     if (route !== '/') {
       navigate('/');
@@ -34,18 +35,30 @@ export default function Navbar({ route }) {
         >
           M. Zaid Alam
         </button>
-        <nav aria-label="Primary" className="flex items-center gap-0.5 sm:gap-1">
-          {LINKS.map((link) => (
-            <button
-              key={link.id}
-              type="button"
-              onClick={() => go(link.id)}
-              className="rounded-full px-2.5 py-1.5 font-hand text-lg text-ink/75 transition hover:bg-ink/5 hover:text-ink sm:px-3"
-            >
-              {link.label}
-            </button>
-          ))}
-        </nav>
+        <div className="flex items-center gap-2">
+          <nav aria-label="Primary" className="flex items-center gap-0.5 sm:gap-1">
+            {LINKS.map((link) => (
+              <button
+                key={link.id}
+                type="button"
+                onClick={() => go(link.id)}
+                className="rounded-full px-2.5 py-1.5 font-hand text-lg text-ink/75 transition hover:bg-ink/5 hover:text-ink sm:px-3"
+              >
+                {link.label}
+              </button>
+            ))}
+          </nav>
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            aria-pressed={dark}
+            aria-label={dark ? 'Switch back to daylight' : 'Switch to night reading'}
+            title={dark ? 'Back to daylight' : 'Light the lamp'}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 bg-white/70 text-ink shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
+          >
+            {dark ? <Sun size={16} /> : <Lightbulb size={16} />}
+          </button>
+        </div>
       </div>
     </header>
   );

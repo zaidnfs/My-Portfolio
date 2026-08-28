@@ -10,8 +10,9 @@ import { Check, Eraser, Pencil, Trash2 } from 'lucide-react';
 
 const DOT_GAP = 24;
 const INK = '47, 42, 36';
+const CREAM = '250, 246, 238';
 
-function paintPaper(canvas) {
+function paintPaper(canvas, isDark) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return; // jsdom-safe: canvas has no 2d context in tests
   const dpr = window.devicePixelRatio || 1;
@@ -21,7 +22,7 @@ function paintPaper(canvas) {
   canvas.height = Math.floor(h * dpr);
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = `rgba(${INK}, 0.16)`;
+  ctx.fillStyle = isDark ? `rgba(${CREAM}, 0.13)` : `rgba(${INK}, 0.16)`;
   for (let y = DOT_GAP; y < h; y += DOT_GAP) {
     for (let x = DOT_GAP; x < w; x += DOT_GAP) {
       ctx.beginPath();
@@ -31,7 +32,7 @@ function paintPaper(canvas) {
   }
 }
 
-export default function PaperCanvas() {
+export default function PaperCanvas({ dark = false }) {
   const paperRef = useRef(null);
   const sketchRef = useRef(null);
   const drawingRef = useRef(false);
@@ -66,7 +67,7 @@ export default function PaperCanvas() {
         const oldCtx = old.getContext('2d');
         if (oldCtx) oldCtx.drawImage(sketch, 0, 0);
 
-        paintPaper(paper);
+        paintPaper(paper, dark);
         sizeSketch();
 
         const ctx = sketch.getContext('2d');
@@ -81,7 +82,12 @@ export default function PaperCanvas() {
       window.removeEventListener('resize', onResize);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [dark]);
+
+  // repaint the dot grid when the theme flips between day and night
+  useEffect(() => {
+    if (paperRef.current) paintPaper(paperRef.current, dark);
+  }, [dark]);
 
   const applyTool = useCallback(
     (ctx) => {
@@ -94,10 +100,10 @@ export default function PaperCanvas() {
       } else {
         ctx.globalCompositeOperation = 'source-over';
         ctx.lineWidth = 2.4;
-        ctx.strokeStyle = `rgba(${INK}, 0.55)`;
+        ctx.strokeStyle = dark ? `rgba(${CREAM}, 0.5)` : `rgba(${INK}, 0.55)`;
       }
     },
-    [tool]
+    [tool, dark]
   );
 
   const getPos = (e) => {

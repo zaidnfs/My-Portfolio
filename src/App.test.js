@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
 test('renders the storybook landing page with the owner name', () => {
@@ -20,3 +20,13 @@ test('renders the bookmark shelf with every project bookmark', () => {
     expect(screen.getByRole('tab', { name: new RegExp(bookmark, 'i') })).toBeInTheDocument();
   });
 });
+
+test('toggles night reading mode with the lamp button', () => {
+  render(<App />);
+  expect(document.documentElement.classList.contains('dark')).toBe(false);
+  fireEvent.click(screen.getByRole('button', { name: /switch to night reading/i }));
+  expect(document.documentElement.classList.contains('dark')).toBe(true);
+  fireEvent.click(screen.getByRole('button', { name: /switch back to daylight/i }));
+  expect(document.documentElement.classList.contains('dark')).toBe(false);
+});
+
