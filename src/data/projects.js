@@ -149,6 +149,13 @@ export const projects = [
       '100+ participant registrations handled without data integrity issues',
       'Separate participant & admin panels enforced via RBAC',
     ],
+    tools: [
+      { name: 'Django Admin', use: 'Customized into the organizer panel — instant CRUD for events, registrations and schedules.' },
+      { name: 'Django Migrations', use: 'Schema control through a weekend of rapid model changes.' },
+      { name: 'Python venv & pip', use: 'A reproducible environment the whole team could agree on in minutes.' },
+      { name: 'Git & GitHub', use: 'Branch-and-merge flow so everyone could ship in parallel without colliding.' },
+      { name: 'HTML Templates', use: 'Participant-facing pages straight from Django’s template engine — no build step under pressure.' },
+    ],
   },
   {
     slug: 'stream',
@@ -232,6 +239,14 @@ export const projects = [
       '15+ configurable policy workflows with branching and parallel gates',
       '50+ compliance reviews secured with tamper-evident audit trails',
       '~30% smaller frontend payloads with SPA-like responsiveness',
+    ],
+    tools: [
+      { name: 'PostgreSQL', use: 'Isolated tenant schemas and the atomic per-tenant migration runner — the backbone of STREAM.' },
+      { name: 'Django ORM & Migrations', use: 'Tenant-scoped repository layer and schema-by-tenant migration orchestration.' },
+      { name: 'django-axes', use: 'Brute-force protection on login with per-tenant lockout thresholds.' },
+      { name: 'HTMX', use: 'Server-driven partial swaps and out-of-band updates behind the SPA-like interface.' },
+      { name: 'Tailwind CSS', use: 'Rapid, consistent styling of the policy dashboards and compliance screens.' },
+      { name: 'Git & GitHub', use: 'Version control, review flow, and the repeatable path from commit to deployment.' },
     ],
   },
   {
@@ -323,6 +338,14 @@ export const projects = [
       'Automated build, test & deploy pipeline with GitHub Actions',
       'Scalable, fault-tolerant ML inference with repeatable releases',
     ],
+    tools: [
+      { name: 'HuggingFace Transformers', use: 'Loading and fine-tuning the pretrained BERT checkpoint.' },
+      { name: 'Pandas / NumPy', use: 'Text cleaning, normalization and stratified dataset splits.' },
+      { name: 'Jupyter notebooks', use: 'Prototyping the training loop before productionizing it.' },
+      { name: 'Docker', use: 'API and UI images with pinned dependencies and baked-in model weights.' },
+      { name: 'Kubernetes', use: 'Deployments, services and probes for fault-tolerant inference.' },
+      { name: 'GitHub Actions', use: 'The CI/CD path — test, build, push, deploy on every change.' },
+    ],
   },
   {
     slug: 'http-server',
@@ -403,6 +426,13 @@ export const projects = [
       '500+ simultaneous client connections sustained',
       'Manual parsing of requests, headers & Content-Length',
       'MIME-type detection and directory-traversal protection built in',
+    ],
+    tools: [
+      { name: 'Go', use: 'The whole server — goroutines, raw TCP sockets and hand-parsed HTTP/1.1.' },
+      { name: 'curl', use: 'Happy-path smoke tests across methods, headers and file routes.' },
+      { name: 'Load-test harness', use: 'Hundreds of concurrent connections to surface goroutine leaks and slow reads.' },
+      { name: 'go test', use: 'Adversarial request cases — traversals, malformed lines, oversized headers.' },
+      { name: 'Git', use: 'Checkpointing every milestone of the server’s evolution.' },
     ],
   },
 ];

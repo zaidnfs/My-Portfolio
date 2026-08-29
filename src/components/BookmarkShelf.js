@@ -34,7 +34,7 @@ export default function BookmarkShelf() {
         <div
           role="tablist"
           aria-label="Project bookmarks"
-          className="flex items-end justify-center gap-2 overflow-x-auto px-2 sm:gap-4"
+          className="no-scrollbar flex items-end justify-center gap-2 overflow-x-auto px-2 sm:gap-4"
         >
           {projects.map((p) => {
             const acc = ACCENTS[p.accent];

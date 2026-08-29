@@ -1,47 +1,56 @@
 import { useState } from 'react';
 
-// The vintage pendant lamp hangs from the top-right corner in BOTH themes —
-// lights off in daylight (a bronze fixture sketched in ink), glowing during
-// night reading (`lit`), with the cone and vignette only while lit. Purely
-// decorative (aria-hidden, pointer-events-none) — the "pool of light" that
-// follows the section being read is rendered by App. To hang it from the other
-// corner instead, swap the lamp's right-* offsets for left-* and mirror the
-// cone/vignette gradient positions.
+// Two vintage pendant lamps — one hanging from each top corner — present in
+// BOTH themes: lights off in daylight (bronze fixtures sketched in ink),
+// glowing during night reading (`lit`), with cones and vignette only while
+// lit. Purely decorative (aria-hidden, pointer-events-none wrapper) — the
+// "pool of light" that follows the section being read is rendered by App.
+// Use the navbar button or click either lamp to flick the theme.
 
 export default function NightLamp({ lit = false, onToggle }) {
-  const [kicking, setKicking] = useState(false);
+  const [kicking, setKicking] = useState('');
 
-  // flicking the lamp toggles the theme and gives the fixture a playful swing
-  const flick = () => {
+  // flicking one of the lamps toggles the theme and gives that fixture a kick
+  const flick = (side) => {
     if (onToggle) onToggle();
-    setKicking(false);
-    requestAnimationFrame(() => setKicking(true));
-    window.setTimeout(() => setKicking(false), 950);
+    setKicking('');
+    requestAnimationFrame(() => setKicking(side));
+    window.setTimeout(() => setKicking(''), 950);
   };
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[5]">
       {lit && (
-        /* the edges of the page fall into shadow */
+        /* the edges of the page fall into shadow — brightest under the lamps */
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse at 68% 32%, transparent 38%, rgba(6, 4, 2, 0.45) 100%)',
+              'radial-gradient(ellipse at 80% 26%, transparent 36%, rgba(6, 4, 2, 0.5) 100%), radial-gradient(ellipse at 20% 26%, transparent 36%, rgba(6, 4, 2, 0.5) 100%)',
           }}
         />
       )}
 
-      {/* a vintage pendant lamp, hanging from the top-right corner, swaying gently */}
-      <div className="absolute right-[6vw] top-0 sm:right-[9vw] lg:right-[12vw]">
-        <div
-          className={`lamp-sway lamp-toy pointer-events-auto flex flex-col items-center ${
-            lit ? 'lamp-lit' : ''
-          } ${kicking ? 'lamp-kick' : ''}`}
-          onClick={flick}
-          title="Flick the lights"
-        >
-          <div className="h-3 w-px bg-ink/25" />
+      {/* two vintage pendant lamps, one from each top corner, swaying gently */}
+      {['right', 'left'].map((side) => {
+        const isLeft = side === 'left';
+        return (
+          <div
+            key={side}
+            className={`absolute top-0 ${
+              isLeft
+                ? 'left-[6vw] sm:left-[9vw] lg:left-[12vw]'
+                : 'right-[6vw] sm:right-[9vw] lg:right-[12vw]'
+            }`}
+          >
+            <div
+              className={`lamp-sway lamp-toy pointer-events-auto flex flex-col items-center ${
+                lit ? 'lamp-lit' : ''
+              } ${kicking === side ? 'lamp-kick' : ''}`}
+              onClick={() => flick(side)}
+              title="Flick the lights"
+            >
+              <div className="h-3 w-px bg-ink/25" />
           <svg
             width="120"
             height="176"
@@ -51,12 +60,12 @@ export default function NightLamp({ lit = false, onToggle }) {
             aria-hidden="true"
           >
             <defs>
-              <radialGradient id="lamp-bulb-glow" cx="50%" cy="50%" r="50%">
+              <radialGradient id={`lamp-bulb-glow-${side}`} cx="50%" cy="50%" r="50%">
                 <stop offset="0%" stopColor="rgba(255, 210, 140, 0.5)" />
                 <stop offset="45%" stopColor="rgba(255, 196, 120, 0.2)" />
                 <stop offset="100%" stopColor="rgba(255, 196, 120, 0)" />
               </radialGradient>
-              <linearGradient id="lamp-shade" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={`lamp-shade-${side}`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="rgb(66 50 32)" />
                 <stop offset="55%" stopColor="rgb(46 34 22)" />
                 <stop offset="100%" stopColor="rgb(58 44 27)" />
@@ -84,8 +93,8 @@ export default function NightLamp({ lit = false, onToggle }) {
 
             {/* warm glow around the bulb — bright at night, a tease on hover */}
             <g className="lamp-glow">
-              <circle cx="60" cy="128" r="48" fill="url(#lamp-bulb-glow)" opacity="0.5" />
-              <circle cx="60" cy="128" r="32" fill="url(#lamp-bulb-glow)" />
+              <circle cx="60" cy="128" r="48" fill={`url(#lamp-bulb-glow-${side})`} opacity="0.5" />
+              <circle cx="60" cy="128" r="32" fill={`url(#lamp-bulb-glow-${side})`} />
             </g>
 
             {/* finial knob joining chain to shade */}
@@ -102,7 +111,7 @@ export default function NightLamp({ lit = false, onToggle }) {
             {/* empire shade with panel ribs */}
             <path
               d="M49 66 Q60 60 71 66 L93 110 Q97 117 89 117 L31 117 Q23 117 27 110 Z"
-              fill="url(#lamp-shade)"
+              fill={`url(#lamp-shade-${side})`}
               stroke="currentColor"
               strokeOpacity="0.55"
               strokeWidth="2"
@@ -157,18 +166,29 @@ export default function NightLamp({ lit = false, onToggle }) {
               strokeLinecap="round"
             />
           </svg>
-        </div>
-      </div>
+            </div>
+          </div>
+        );
+      })}
 
       {lit && (
-        /* a faint cone of light fanning from the corner across the page */
-        <div
-          className="absolute right-0 top-[150px] h-[62vh] w-[min(96vw, 1150px)]"
-          style={{
-            background:
-              'radial-gradient(ellipse at 80% 0%, rgba(255, 196, 120, 0.10), rgba(255, 196, 120, 0.03) 45%, transparent 72%)',
-          }}
-        />
+        <>
+          {/* cones of light fanning from both corners across the page */}
+          <div
+            className="absolute right-0 top-[150px] h-[62vh] w-[min(96vw, 1150px)]"
+            style={{
+              background:
+                'radial-gradient(ellipse at 80% 0%, rgba(255, 196, 120, 0.10), rgba(255, 196, 120, 0.03) 45%, transparent 72%)',
+            }}
+          />
+          <div
+            className="absolute left-0 top-[150px] h-[62vh] w-[min(96vw, 1150px)]"
+            style={{
+              background:
+                'radial-gradient(ellipse at 20% 0%, rgba(255, 196, 120, 0.10), rgba(255, 196, 120, 0.03) 45%, transparent 72%)',
+            }}
+          />
+        </>
       )}
     </div>
   );

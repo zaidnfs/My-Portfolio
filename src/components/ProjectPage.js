@@ -6,6 +6,7 @@ import {
   CalendarDays,
   CheckCircle2,
   Flag,
+  Hammer,
   Layers,
   Lightbulb,
   Wrench,
@@ -222,6 +223,26 @@ export default function ProjectPage({ slug }) {
             ))}
           </ul>
         </div>
+      </section>
+
+      {/* Tools I used */}
+      <section className="mt-12" aria-labelledby="tools-heading">
+        <ChapterHeading icon={Hammer} title="Tools I Used" accent={accent} />
+        <span id="tools-heading" className="sr-only">
+          Tools I Used
+        </span>
+        <p className="mt-2 text-inksoft">The kit I reached for while building this chapter.</p>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+          {project.tools.map((tool) => (
+            <li key={tool.name} className="paper-card p-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className={`h-2 w-2 rounded-full ${accent.bg}`} aria-hidden="true" />
+                <h3 className="font-hand text-xl font-semibold text-ink">{tool.name}</h3>
+              </div>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink/80">{tool.use}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {project.source && (
