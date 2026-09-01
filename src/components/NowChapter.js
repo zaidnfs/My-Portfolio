@@ -6,19 +6,19 @@ import { navigate } from '../router/useHashRoute';
 const HIGHLIGHTS = [
   {
     icon: Database,
-    text: 'Multi-tenant PostgreSQL built on isolated schemas and atomic transactions — 100% data isolation across every enterprise tenant.',
+    text: 'PostgreSQL schema-based multi-tenancy on django-tenants — fifteen Django apps split across shared and tenant schemas, with a custom tenant middleware (domain + session fallback) delivering 100% data isolation.',
   },
   {
     icon: Workflow,
-    text: 'An AST-based workflow engine with conditional branching and parallel execution gates across 15+ configurable policy workflows.',
+    text: 'A configurable approval-workflow engine — SOP / Flexi / Ad Hoc types, parallel execution groups, delegation and revision annotations — inside 21 CFR Part 11 document management with e-signatures and immutable audit trails.',
   },
   {
     icon: ShieldCheck,
-    text: 'Per-tenant RBAC, django-axes brute-force mitigation, and Template Snapshotting that secures audit trails for 50+ compliance reviews.',
+    text: 'A from-scratch RSA-JWT licensing engine (tamper detection, user pools, module entitlements) inside a 14-layer middleware pipeline with tenant password policies, Turnstile CAPTCHA and XSS-safe HTML sanitisation.',
   },
   {
     icon: Zap,
-    text: 'A reactive, SPA-like interface in HTMX + Tailwind CSS — roughly 30% lighter payloads with real-time server-client state sync.',
+    text: 'An HTMX + Tailwind interface with a full dark-mode design system — roughly 30% lighter payloads — shipped in multi-stage Docker and covered by 40+ tenant-aware test classes plus Bandit and pip-audit scanning.',
   },
 ];
 

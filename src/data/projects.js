@@ -56,13 +56,13 @@ export const profile = {
 
 export const nowStatus = {
   label: 'Current Status',
-  title: 'STREAM — Enterprise Policy & Compliance SaaS',
+  title: 'STREAM — Multi-Tenant Compliance SaaS',
   company: 'Salire Attitude Pvt. Ltd.',
   place: 'Bangalore, India',
   role: 'Lead Full-Stack Developer & Architect (Intern)',
   period: 'Jan 2026 — Present',
   blurb:
-    'Right now I am the sole technical owner of STREAM: a Python/Django SaaS platform that helps FMCG and pharmaceutical clients manage policies and prove compliance. I design the multi-tenant data layer, build the workflow engine that drives configurable policy flows, and shape a fast HTMX/Tailwind interface — all while keeping enterprise-grade security and audit trails intact.',
+    'Right now I am the sole technical owner of STREAM: a Django 5 / PostgreSQL multi-tenant SaaS that helps FMCG and pharmaceutical clients manage policies and prove 21 CFR Part 11 compliance. I design the schema-isolated data layer, build the approval-workflow and RSA-JWT licensing engines, harden the 14-layer middleware pipeline, and shape a fast HTMX/Tailwind interface.',
   slug: 'stream',
 };
 
@@ -159,9 +159,9 @@ export const projects = [
   },
   {
     slug: 'stream',
-    title: 'STREAM — Policy & Compliance SaaS',
+    title: 'STREAM — Multi-Tenant Compliance SaaS',
     shortTitle: 'STREAM',
-    tagline: 'An enterprise policy-management platform, architected end-to-end as sole technical owner.',
+    tagline: 'A 21 CFR Part 11-grade platform for regulated industries — architected end-to-end as sole technical owner.',
     kind: 'Work · Featured Chapter',
     company: 'Salire Attitude Pvt. Ltd., Bangalore, India',
     role: 'Lead Full-Stack Developer & Architect (Intern)',
@@ -170,83 +170,122 @@ export const projects = [
     doodle: 'database',
     doodleCaption: 'schemas & safeguards…',
     source: null,
-    tags: ['Python', 'Django', 'PostgreSQL', 'HTMX', 'Tailwind CSS'],
+    tags: ['Python 3.12', 'Django 5', 'PostgreSQL 16', 'django-tenants', 'HTMX', 'Tailwind CSS', 'Docker'],
     summary:
-      'STREAM is the enterprise SaaS platform I architect at Salire Attitude: a Python/Django system for policy management and compliance serving FMCG and pharmaceutical clients. Multi-tenant PostgreSQL, a configurable workflow engine, and a reactive HTMX interface — built to compliance-grade standards.',
+      'STREAM is the enterprise platform I architect at Salire Attitude: a Django 5 / PostgreSQL 16 SaaS for policy and document compliance in FMCG and pharma (21 CFR Part 11). Fifteen Django apps on schema-based multi-tenancy, a configurable approval-workflow engine, an RSA-JWT licensing engine, a 14-layer middleware pipeline and an HTMX/Tailwind interface — covered by 40+ tenant-aware tests.',
     overview:
-      'STREAM is an enterprise SaaS platform for policy management and compliance, built for FMCG and pharmaceutical clients where a leaked record or a missing audit trail is a regulatory problem, not just a bug. I joined as the Lead Full-Stack Developer & Architect (Intern) and became the sole technical owner: I designed the multi-tenant PostgreSQL backbone, the workflow engine that encodes policy logic, the security layers, and the reactive interface on top. The product treats tenant isolation, auditability, and configurability as first-class features rather than afterthoughts.',
+      'STREAM is a multi-tenant SaaS platform for policy management and document compliance, built for FMCG and pharmaceutical organisations where records are regulated under 21 CFR Part 11 — a leaked record or a missing audit trail is a regulatory problem, not just a bug. I joined as the Lead Full-Stack Developer & Architect (Intern) and became the sole technical owner. The platform runs on PostgreSQL schema-based multi-tenancy (django-tenants) with fifteen purpose-built Django apps, a configurable multi-step approval workflow engine, a from-scratch RSA-JWT licensing engine, and a hardened 14-layer middleware pipeline — presented through an HTMX + Tailwind interface with a full dark-mode design system, and covered by 40+ tenant-aware integration tests plus Bandit and pip-audit security scanning.',
     buildStory: [
       {
         title: 'Choosing a tenancy model',
         detail:
-          'The first architectural decision was how to isolate tenants. I compared shared-row tenancy (row-level security), database-per-tenant (expensive to operate), and isolated schemas. I went with isolated schemas: each tenant gets its own PostgreSQL schema, which gives hard structural isolation, per-tenant migration control, and clean data removal when a client leaves. Cross-schema writes are wrapped in atomic transactions so a partial failure can never leave a tenant half-migrated.',
+          'Compliance clients need hard isolation, so I built STREAM on django-tenants: every organisation gets its own PostgreSQL schema, with SHARED_APPS (tenants, accounts, core, licensing) in the public schema and fifteen tenant apps living per-schema. I extended TenantMainMiddleware with a custom StreamTenantMiddleware — exact-domain matching, hostname fallback, subdomain extraction, plus a session-based fallback for the login flow — and split routing into urls_public.py and urls_tenant.py so the two worlds never meet.',
       },
       {
-        title: 'Designing the workflow engine',
+        title: 'Designing the approval workflow engine',
         detail:
-          'Compliance teams need policy workflows they can configure without a developer. I modeled each workflow as a state machine and built a rule evaluator that parses conditions into an AST before executing them. That gives safe conditional branching and parallel execution gates — steps that must all clear before a policy advances — across 15+ configurable workflows. No string-eval shortcuts, and every rule is testable in isolation.',
+          'Compliance teams need document approvals they can configure without a developer. The engine supports three workflow types — SOP (steps fixed at design time), Flexi (approvers chosen at submission) and Ad Hoc (steps added at runtime) — with parallel execution groups (steps 2.1/2.2 running concurrently), five step types, deferred approver assignment, configurable rejection routing and one-time approval delegation for leave coverage. Step deadlines are computed in working days against a holiday calendar.',
       },
       {
-        title: 'Building the security layer',
+        title: 'Building 21 CFR Part 11 document management',
         detail:
-          'Security had to be per-tenant from day one. I implemented RBAC with tenant-scoped roles so an admin in one tenant has no implicit power in another, added django-axes for brute-force mitigation on login endpoints, and built a Template Snapshotting system that freezes exactly what a reviewer saw at review time — so audit trails for 50+ compliance reviews cannot be quietly rewritten later.',
+          'The repository auto-generates document numbers (SOP-QSP-HR-0001), versions them semantically (01.00 → 01.01 → 02.00) and chains every version immutably through previous_version / superseded_by self-references — old versions are archived, never deleted. Approvals record electronic signatures with their meaning (“Approved by Quality Head”), the acting vs assigned approver, timezone-aware timestamps and client IP, all inside a 1,500+ line model file that keeps the repository honest.',
+      },
+      {
+        title: 'Engineering the licensing engine',
+        detail:
+          'I implemented a cryptographic licensing engine from scratch: RSA-2048 key pairs sign license payloads as JWTs, verified on install and bound to a SHA-256 fingerprint of schema_name:customer_id. A LicenseEnforcementMiddleware blocks every tenant request when a license is inactive, expired or tampered — signature verification makes any modified claim mathematically detectable — while a five-minute status cache keeps verification off the hot path. Licenses carry user pools (Named 1:1, Concurrent 1.5x), module entitlements, storage/CPU limits, role caps and a one-day grace period, with every lifecycle event in a license audit log.',
+      },
+      {
+        title: 'Hardening the security layer',
+        detail:
+          'Security is tenant-scoped end to end: a 700+ line custom AbstractUser model with role-based permissions, per-tenant PasswordPolicy singletons read at runtime by a custom validator (length, complexity, expiry, history), force-change middleware, django-axes brute-force lockouts (5 attempts → 30-minute cooloff) and Cloudflare Turnstile on login. Rich text is sanitised by a pure-Python SafeHTMLParser I wrote from scratch — whitelisted tags, javascript:/data:/vbscript: schemes stripped, on* handlers removed — and the stack ships CSP, HSTS, Permissions-Policy and trusted-proxy-aware IP extraction.',
+      },
+      {
+        title: 'Modelling the organisation',
+        detail:
+          'The org chart supports multi-division membership with per-division reporting lines, primary flags, and external contractors as credential-free records that can later be promoted to full users. Manager assignment runs a BFS descendant check so circular reporting chains are impossible, CEO uniqueness is validated at the model layer, and unique business IDs (ORG-, CUST-, PO-) are generated concurrency-safely with SELECT … FOR UPDATE plus an IntegrityError retry loop.',
       },
       {
         title: 'The reactive interface',
         detail:
-          'For the frontend I chose HTMX + Tailwind CSS over a heavy SPA framework: the server stays the source of truth, and the browser swaps small HTML fragments instead of shipping a JavaScript bundle. The result feels SPA-like — real-time server-client state sync, instant partial updates — while cutting frontend payload size by roughly 30%.',
+          'For the frontend I chose HTMX + Tailwind CSS over a heavy SPA framework: django-htmx detects partial requests and the server swaps small HTML fragments for infinite scroll, inline editing and modals — cutting payload size by roughly 30%. The design system is documented in a 540+ line DESIGN.md and covers a full dark mode on CSS variables, a collapsible sidebar (64px → 240px) and a toast notification system.',
       },
       {
-        title: 'Keeping it all honest',
+        title: 'Shipping with a middleware pipeline & quality gates',
         detail:
-          'I set up automated checks that treat isolation as a testable property: tests that assert no query can cross tenant schemas, migration runs that iterate every tenant schema atomically, and response-fragment checks for the HTMX flows. When your product promise is compliance, the tests are the product.',
+          'Fourteen middlewares run in a precise order — tenant resolution → license enforcement → module access → security → session management → audit — including concurrent-session tracking with admin termination and stale-session cleanup. Quality is engineered in: 40+ test classes on django-tenants TenantTestCase infrastructure, Bandit SAST and pip-audit scanning, a three-stage Dockerfile (non-root, health checks), Docker Compose with resource limits, Gunicorn behind Nginx Proxy Manager with SSL, WhiteNoise static serving — plus install/update scripts, an Installation Qualification document for pharma validation, and post_save signals that seed every new tenant’s master data automatically.',
       },
     ],
     concepts: [
-      'Multi-tenancy trade-offs: isolated schemas vs row-level security vs database-per-tenant',
-      'PostgreSQL schemas, search_path hygiene, and atomic transactions',
-      'AST-based expression evaluation as a safe alternative to eval()',
-      'State machine design for configurable workflows',
-      'RBAC design with tenant-scoped roles and permission matrices',
-      'Brute-force mitigation and login hardening with django-axes',
-      'Immutable audit trails via template snapshotting',
-      'HTMX hypermedia architecture: server-driven partial swaps',
+      'django-tenants: shared vs tenant apps, schema_context switching and the TenantSyncRouter',
+      'Middleware chain design — 14+ components ordered from tenant resolution to security headers',
+      'RSA JWT licensing: signing, verification, fingerprint binding and tamper detection',
+      '21 CFR Part 11: electronic signatures with meaning, immutable audit trails, version chains',
+      'PostgreSQL internals: GIN trigram indexes, SELECT … FOR UPDATE row locking, PROTECT cascades',
+      'Workflow engine design: SOP / Flexi / Ad Hoc strategies, parallel groups, delegation',
+      'Django signals as the observer pattern for provisioning, caching and audit hooks',
+      'Singleton configuration models enforced with unique-key constraints',
+      'BFS cycle detection in self-referential hierarchies (org charts, reporting lines)',
+      'Pure-Python XSS defence: HTML whitelist parsing and dangerous-URI stripping',
+      'Multi-stage Docker builds, non-root containers, health checks and Compose orchestration',
+      'Tenant-aware testing with TenantTestCase, plus Bandit SAST and pip-audit scanning',
     ],
     issues: [
       {
         issue:
-          'Early prototypes let query builders compose filters freely — one misplaced join could have surfaced another tenant’s rows.',
-        fix: 'I funneled every data access through a single tenant-scoped repository layer that sets the schema per request in middleware, banned raw cross-schema joins, and added automated tests that fail the build if any query escapes its tenant boundary.',
+          'Early prototypes could reach public-schema resources, and a request that arrived before tenant resolution had nowhere safe to go.',
+        fix: 'I split routing into urls_public.py and urls_tenant.py, added a PublicSchemaGuardMiddleware that blocks non-system-admins from public resources, and gave StreamTenantMiddleware a session-based fallback so the login flow always resolves a tenant before a single query runs.',
       },
       {
         issue:
-          'Shipping a schema change meant migrating every tenant schema, and one failing tenant could leave the whole fleet inconsistent.',
-        fix: 'I built a migration runner that iterates tenant schemas in a defined order, wraps each in a transaction, and rolls back per tenant with a progress report — so a bad migration fails loudly for one tenant instead of silently for all.',
+          'RSA license verification on every request was expensive — and a tampered claim had to be caught without exception.',
+        fix: 'License status is cached for five minutes between verifications to keep the hot path fast, while RSA signature checks make any modified claim mathematically detectable; enforcement middleware then blocks inactive, expired or tampered licenses after a one-day grace period.',
       },
       {
         issue:
-          'HTMX partial swaps caused state drift: duplicated element IDs and stale fragments after quick successive updates.',
-        fix: 'I standardized fragment templates with unique IDs, used out-of-band swaps for shared regions, and added checks that assert every swapped fragment is self-consistent.',
+          'Concurrent sign-ups raced on unique business IDs (ORG-, CUST-, PO-) generated from MAX queries — two requests could claim the same number.',
+        fix: 'Generation now takes SELECT … FOR UPDATE row locks inside an atomic transaction and retries through IntegrityError, so collisions resolve quietly instead of crashing the request.',
       },
       {
-        issue: 'Login endpoints became a target for credential-stuffing once pilot tenants onboarded.',
-        fix: 'django-axes lockouts with per-tenant thresholds, plus lockout telemetry so suspicious patterns are visible to admins instead of being silently locked away.',
+        issue:
+          'A manager reassignment could create a circular reporting chain and quietly break the entire org chart.',
+        fix: 'Assignment runs a BFS descendant traversal that rejects any cycle before it persists, alongside CEO-uniqueness and department-division consistency validations at the model layer.',
+      },
+      {
+        issue:
+          'Rich-text content was an XSS vector — Quill HTML could carry event handlers or javascript: URIs straight into stored documents.',
+        fix: 'I wrote a dependency-free SafeHTMLParser that whitelists tags and attributes, strips javascript:/data:/vbscript: schemes and on* handlers, then re-serialises the clean HTML back into the Quill JSON before it ever touches the database.',
+      },
+      {
+        issue:
+          'Compliance audit rows had to be truly immutable — a careless ORM update or delete would silently rewrite regulated history.',
+        fix: 'Audit models override save() and delete() to raise ValueError and declare only add/view permissions in Meta, so history is written once and can only ever be read afterwards.',
       },
     ],
-    stack: ['Python', 'Django', 'PostgreSQL (isolated schemas)', 'HTMX', 'Tailwind CSS', 'django-axes'],
+    stack: ['Python 3.12', 'Django 5', 'PostgreSQL 16', 'django-tenants', 'HTMX', 'Tailwind CSS', 'Gunicorn + Nginx', 'Docker'],
     outcomes: [
-      '100% data isolation maintained across all enterprise tenants',
-      '15+ configurable policy workflows with branching and parallel gates',
-      '50+ compliance reviews secured with tamper-evident audit trails',
-      '~30% smaller frontend payloads with SPA-like responsiveness',
+      '15 Django apps with full CRUD, admin and test coverage',
+      '40+ tenant-aware test classes; Bandit SAST + pip-audit scanning',
+      '14-layer middleware pipeline from tenant resolution to security headers',
+      '1,500+ line document model; 700+ line custom User model',
+      '400+ line RSA JWT licensing engine with tamper detection',
+      '100% tenant data isolation; ~30% lighter frontend payloads',
+      '540+ line documented design system with full dark mode',
     ],
     tools: [
-      { name: 'PostgreSQL', use: 'Isolated tenant schemas and the atomic per-tenant migration runner — the backbone of STREAM.' },
-      { name: 'Django ORM & Migrations', use: 'Tenant-scoped repository layer and schema-by-tenant migration orchestration.' },
-      { name: 'django-axes', use: 'Brute-force protection on login with per-tenant lockout thresholds.' },
-      { name: 'HTMX', use: 'Server-driven partial swaps and out-of-band updates behind the SPA-like interface.' },
-      { name: 'Tailwind CSS', use: 'Rapid, consistent styling of the policy dashboards and compliance screens.' },
-      { name: 'Git & GitHub', use: 'Version control, review flow, and the repeatable path from commit to deployment.' },
+      { name: 'PostgreSQL 16', use: 'Schema-based multi-tenancy, GIN trigram search indexes and SELECT … FOR UPDATE row locking.' },
+      { name: 'Django 5 & django-tenants', use: 'Fifteen purpose-built apps split across shared and tenant schemas.' },
+      { name: 'HTMX + django-htmx', use: 'Partial swaps, infinite scroll, inline editing and modals without a JS framework.' },
+      { name: 'Tailwind CSS v3', use: 'The design system — dark mode on CSS variables, responsive sidebar, toasts.' },
+      { name: 'Docker & Docker Compose', use: 'Three-stage builds, health checks, resource limits and non-root execution.' },
+      { name: 'Gunicorn + Nginx Proxy Manager', use: 'Production WSGI serving behind SSL termination.' },
+      { name: 'WhiteNoise', use: 'Compressed, manifest-cached static files served straight from Django.' },
+      { name: 'django-axes', use: 'Brute-force lockouts — 5 failed attempts, 30-minute cooloff.' },
+      { name: 'Cloudflare Turnstile', use: 'Bot protection with server-side token verification on login.' },
+      { name: 'Quill + LibreOffice headless', use: 'Rich-text authoring (sanitised) and DOCX → PDF preview conversion.' },
+      { name: 'Bandit & pip-audit', use: 'Static security analysis plus dependency vulnerability scanning.' },
+      { name: 'select2 / simple-history / tree-queries / cleanup', use: 'AJAX selects, per-schema history, tree queries and automatic file cleanup.' },
     ],
   },
   {
