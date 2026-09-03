@@ -9,6 +9,7 @@ import {
   EducationSection,
   SkillsSection,
 } from './components/NoteGrid';
+import JourneySection from './components/Journey';
 import PaperCanvas from './components/PaperCanvas';
 import NightLamp from './components/NightLamp';
 import ProjectPage from './components/ProjectPage';
@@ -55,7 +56,7 @@ export default function App() {
       const onProject = route.match(/^\/project\//);
       const ids = onProject
         ? ['project-chapter', 'contact']
-        : ['story', 'now', 'bookshelf', 'notes', 'education', 'certifications', 'contact'];
+        : ['story', 'now', 'bookshelf', 'notes', 'education', 'certifications', 'journey', 'contact'];
       const mid = window.innerHeight / 2;
       let best = null;
       let bestDist = Infinity;
@@ -126,6 +127,7 @@ export default function App() {
             <SkillsSection />
             <EducationSection />
             <CertificationsSection />
+            <JourneySection />
           </main>
         )}
         <Footer />

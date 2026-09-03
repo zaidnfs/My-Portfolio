@@ -18,6 +18,7 @@ src/
   components/
     PaperCanvas.js       ← dotted-paper background + optional doodle mode
     Doodles.js           ← hand-drawn margin sketches with captions
+    Journey.js           ← winding milestone trail (data-driven)
     Navbar.js            ← sticky paper-tab navigation
     Hero.js              ← Chapter One: overview & contact
     NowChapter.js        ← featured "currently working on" card

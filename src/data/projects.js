@@ -525,3 +525,32 @@ export const certifications = [
   { name: 'Data Structures & Algorithms (DSA)', issuer: 'Udemy', year: '2024' },
   { name: 'GCP Badge', issuer: 'Google', year: '2025', extra: 'verified on Credly' },
 ];
+
+// Life milestones — pin new ones here and the trail grows automatically.
+// `accent` rotates through sage / terracotta / dustyblue / mustard if omitted.
+export const milestones = [
+  {
+    date: 'July 2021',
+    title: 'Passed out of high school',
+    detail: 'Closed the school chapter and started pointing everything at science, code and glowing screens.',
+    accent: 'sage',
+  },
+  {
+    date: 'May 2023',
+    title: 'Passed my +2',
+    detail: 'Cleared the intermediate leap and earned a seat in engineering.',
+    accent: 'terracotta',
+  },
+  {
+    date: 'Jan 2026',
+    title: 'First internship',
+    detail: 'Joined Salire Attitude Pvt. Ltd. — the door into STREAM, multi-tenancy and real enterprise software.',
+    accent: 'dustyblue',
+  },
+  {
+    date: 'Feb 2026',
+    title: 'First hackathon',
+    detail: 'CodeSprint: twenty-four hours, a full Django platform, and a lifelong appetite for shipping under pressure.',
+    accent: 'mustard',
+  },
+];
