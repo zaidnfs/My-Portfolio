@@ -48,7 +48,7 @@ export const profile = {
   email: 'zaidlc319@gmail.com',
   phone: '+91 89278-95633',
   github: 'https://github.com/zaidnfs',
-  linkedin: 'https://www.linkedin.com/in/zaid-alam',
+  linkedin: 'https://www.linkedin.com/in/zaidalam-cloud-ai/',
   x: 'https://x.com/Akii_hello',
   intro:
     'I am a full-stack developer from West Bengal, India, who likes building systems end-to-end: multi-tenant SaaS backends, ML pipelines that ship to Kubernetes, and the occasional HTTP server written from raw TCP sockets just to understand what frameworks hide. By day I lead architecture on an enterprise compliance platform; the rest of the time I am usually fine-tuning a transformer, grinding DSA, or adding another page to this storybook. Every chapter below is an honest field journal — what I built, what I learned, and everything that broke along the way.',
