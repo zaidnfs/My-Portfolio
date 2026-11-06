@@ -68,6 +68,71 @@ export const nowStatus = {
 
 export const projects = [
   {
+    slug: 'ascii-sharks',
+    title: 'ASCII Sharks — Artificial-Life Ocean Simulation',
+    shortTitle: 'ASCII Sharks',
+    tagline: 'Autonomous schooling boids and predatory sharks rendered in pure ASCII on Canvas 2D.',
+    kind: 'Creative Physics Engine',
+    company: null,
+    role: 'Simulation & ASCII Graphics',
+    date: '2026',
+    accent: 'dustyblue',
+    doodle: 'shark',
+    doodleCaption: '20 joint nodes deep…',
+    source: 'https://github.com/stackedlol/ascii-sharks',
+    tags: ['Canvas 2D', 'Boids Simulation', 'ASCII Typography', 'Inverse Kinematics', 'Physics'],
+    summary:
+      'An interactive terminal-inspired ocean ecosystem rendered on HTML5 canvas in pure ASCII typography. Featuring Reynolds boids with Couzin perception zones, inverse-kinematics spline predators, dynamic fluid wake diffusion, and anti-aliased character rasterization.',
+    overview:
+      'ASCII Sharks is an artificial-life underwater simulation where mathematics and typography meet. Rather than relying on heavyweight 3D engines or WebGL shaders, it breathes life into the browser using only a 2D canvas context and ASCII characters. Schooling fish navigate dynamic ocean currents using Reynolds flocking and Couzin zones, while predatory sharks stalk stragglers using follow-the-leader inverse kinematics spines.',
+    buildStory: [
+      {
+        title: 'Zero dependencies, pure canvas mathematics',
+        detail:
+          'The engine runs without external physics or graphics frameworks. Every frame is calculated on a fixed 60 FPS timestep with spatial hash partitioning, ensuring silky performance even with hundreds of simulated organisms simultaneously interacting.',
+      },
+      {
+        title: 'Boids in Couzin-style sensing zones',
+        detail:
+          'Fish steer through three concentric behavioral radii: separation (elliptical personal space), alignment (velocity matching), and cohesion (swarm centering). A blind spot behind each fish and alarm-propagation waves recreate the fountain-effect seen in real pelagic bait balls.',
+      },
+      {
+        title: 'Inverse-kinematics predator spine',
+        detail:
+          'Sharks are modeled with 20 joint nodes along a flexible spine with joint stiffness constraints. A travelling body wave drives realistic undulating swimming, banking pectoral fins into sharp turns as hunger drives them to hunt.',
+      },
+      {
+        title: 'Typographic cell rasterization',
+        detail:
+          'Silhouettes are supersampled across sub-cell coordinates to generate crisp anti-aliased edge glyphs. Shading maps to an optical density ramp (:;t%SX8#@), reinforcing lighting vectors and species-specific pigmentation (like tiger stripes and zebra leopard spots).',
+      },
+      {
+        title: 'Fluid wake diffusion & interactive ripples',
+        detail:
+          'Fish tail-beats and pointer disturbances deposit kinetic energy into a 2D scalar field that diffuses and decays exponentially, lighting the background dot grid with glowing bioluminescent caustics.',
+      },
+    ],
+    concepts: [
+      'Reynolds Flocking (Separation, Alignment, Cohesion) with spatial hash optimization',
+      'Couzin perceptual zones, sensory blind spots, and panic contagion waves',
+      'Inverse kinematics and spline-based follow-the-leader physics',
+      'Sub-cell anti-aliasing and density-based typographic ASCII shading',
+      '2D scalar field fluid wake diffusion with exponential temporal decay',
+    ],
+    issues: [
+      {
+        problem: 'Flocking computations became O(N²) when school sizes increased.',
+        solution:
+          'Implemented a dynamic spatial grid hash matching perception radii, reducing neighbor queries from quadratic complexity to near O(1) constant-time cell lookups.',
+      },
+      {
+        problem: 'Canvas text rendering lacked character sharpness during rapid swimming.',
+        solution:
+          'Snapped typography to device-pixel ratios and anchored pseudorandom character variations to body coordinates so glyphs ride naturally along the shark hide.',
+      },
+    ],
+  },
+  {
     slug: 'codesprint',
     title: 'CodeSprint — Event Management Platform',
     shortTitle: 'CodeSprint',

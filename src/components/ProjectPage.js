@@ -15,6 +15,12 @@ import { ACCENTS, projects } from '../data/projects';
 import { navigate } from '../router/useHashRoute';
 import { MarginDoodle, ProjectDoodle } from './Doodles';
 import { scrollToSection } from './Navbar';
+import { AsciiOcean } from './ascii-ocean';
+
+const DEMO_SHARKS = [
+  { kind: 'hammerhead', size: 0.95 },
+  { kind: 'mako', size: 0.75 },
+];
 
 function ChapterHeading({ icon: Icon, title, accent }) {
   return (
@@ -96,6 +102,33 @@ export default function ProjectPage({ slug }) {
       </header>
 
       <div className="rule-dashed my-10" aria-hidden="true" />
+
+      {project.slug === 'ascii-sharks' && (
+        <div className="my-8 overflow-hidden rounded-xl border border-ink/15 bg-slate-950 shadow-xl">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-4 py-2.5 bg-slate-900/90 text-slate-200">
+            <span className="flex items-center gap-2 font-mono text-xs">
+              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+              Live Simulation Sandbox (Move cursor to stir water, click to splash)
+            </span>
+            <button
+              type="button"
+              onClick={() => navigate('/aquarium')}
+              className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 font-hand text-base text-cyan-300 hover:bg-cyan-400 hover:text-slate-950 transition"
+            >
+              Open Fullscreen Lab →
+            </button>
+          </div>
+          <div className="relative h-64 sm:h-80 w-full overflow-hidden">
+            <AsciiOcean
+              theme="deep-sea"
+              sharks={DEMO_SHARKS}
+              fishCount={110}
+              interactive={true}
+              className="h-full w-full"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Overview */}
       <section aria-labelledby="overview-heading">

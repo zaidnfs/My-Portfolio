@@ -300,11 +300,38 @@ export function MarginDoodle({ side = 'left', caption, children, className = '' 
   );
 }
 
+export function SharkDoodle({ className = '' }) {
+  return (
+    <svg
+      viewBox="0 0 96 96"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M18 52 C 24 38, 44 34, 62 42 C 70 46, 78 45, 84 38 C 82 48, 82 54, 85 64 C 77 56, 68 56, 60 58 C 42 63, 26 62, 18 52 Z" />
+      <path d="M42 37 C 46 22, 54 20, 56 30 C 53 35, 52 38, 52 39" />
+      <path d="M38 58 C 34 68, 30 72, 28 72 C 34 68, 42 62, 45 59" />
+      <circle cx="27" cy="48" r="2" fill="currentColor" />
+      <path d="M34 47 v6 m4 -5 v5 m4 -4 v4" strokeWidth="1.8" />
+      <g className="text-dustyblue">
+        <path d="M12 40 q4 -3 8 0 t8 0" strokeWidth="2" />
+        <circle cx="14" cy="30" r="2" />
+        <circle cx="20" cy="22" r="1.5" />
+      </g>
+    </svg>
+  );
+}
+
 const PROJECT_DOODLES = {
   database: DatabaseDoodle,
   rocket: RocketDoodle,
   chat: ChatHeartDoodle,
   server: ServerGlobeDoodle,
+  shark: SharkDoodle,
 };
 
 export function ProjectDoodle({ name, className = '' }) {

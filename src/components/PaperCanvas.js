@@ -164,7 +164,7 @@ export default function PaperCanvas({ dark = false }) {
 
   return (
     <>
-      <div aria-hidden="true" className="fixed inset-0 z-0">
+      <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none">
         <canvas ref={paperRef} className="absolute inset-0 h-full w-full" />
         <div className="grain pointer-events-none absolute inset-0" />
       </div>

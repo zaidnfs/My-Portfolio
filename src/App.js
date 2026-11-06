@@ -13,6 +13,7 @@ import JourneySection from './components/Journey';
 import PaperCanvas from './components/PaperCanvas';
 import NightLamp from './components/NightLamp';
 import ProjectPage from './components/ProjectPage';
+import AquariumPage from './components/AquariumPage';
 import { useHashRoute } from './router/useHashRoute';
 
 export default function App() {
@@ -95,6 +96,10 @@ export default function App() {
     };
   }, [dark, route]);
 
+  if (route === '/aquarium') {
+    return <AquariumPage />;
+  }
+
   const projectMatch = route.match(/^\/project\/([\w-]+)$/);
 
   return (
@@ -121,7 +126,7 @@ export default function App() {
           <ProjectPage slug={projectMatch[1]} />
         ) : (
           <main>
-            <Hero />
+            <Hero dark={dark} />
             <NowChapter />
             <BookmarkShelf />
             <SkillsSection />

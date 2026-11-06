@@ -14,19 +14,35 @@ dependencies). Routing is a tiny custom hash router, chosen so the site never
 ```
 src/
   data/projects.js       ← every word on the site: profile, chapters, skills
-  router/useHashRoute.js ← hash router hook (#/ and #/project/<slug>)
+  router/useHashRoute.js ← hash router hook (#/, #/project/<slug>, #/aquarium)
   components/
-    PaperCanvas.js       ← dotted-paper background + optional doodle mode
+    PaperCanvas.js       ← dotted-paper background + freehand doodle surface
     Doodles.js           ← hand-drawn margin sketches with captions
     Journey.js           ← winding milestone trail (data-driven)
-    Navbar.js            ← sticky paper-tab navigation
-    Hero.js              ← Chapter One: overview & contact
+    Navbar.js            ← sticky paper-tab navigation + Deep Sea lab link
+    Hero.js              ← Chapter One: overview, contact & ambient ASCII ocean
     NowChapter.js        ← featured "currently working on" card
     BookmarkShelf.js     ← project bookmarks + inline summary cards
     NoteGrid.js          ← skills / education / certifications notes
-    ProjectPage.js       ← dedicated chapter page per project
-    Footer.js            ← contact & socials
+    ProjectPage.js       ← dedicated chapter page per project (+ live ASCII sandbox)
+    AquariumPage.js      ← full-screen interactive ASCII Sharks playground
+    Footer.js            ← contact, socials & deep waters link
+    ascii-ocean/         ← zero-dependency Canvas 2D ASCII simulation engine
+      species.js         ← boid flocking, shark kinematic spines, hunting AI
+      renderer.js        ← multi-theme ASCII rasterizer (paper, night, deep-sea, matrix, amber)
+      world.js           ← physics simulation step, chum feeding, collision & splash
+      engine.js          ← 60fps game loop, Resize/IntersectionObserver, telemetry
+      math.js            ← vector math, PRNG hash, smoothing & clamping utilities
+      AsciiOcean.js      ← React component wrapper with dynamic theme/roster syncing
 ```
+
+## Features
+
+- **Ambient Hero Ocean ("Ink on Parchment"):** A subtle ASCII ocean simulation swims exclusively behind the Hero chapter intro, rendering sharks and schools of fish with faint pencil-wash strokes and ink glyphs in daylight, and bioluminescent deep-sea glowing currents in night mode. Its position remains steady and seamless across theme toggles.
+- **Deep Sea Night Mode:** Switching the lamp toggle shifts both the paper theme and the Hero ocean canvas without interrupting or resetting swimming trajectories.
+- **Terminal Aquarium Sandbox (`#/aquarium`):** Dedicated full-screen interactive playground featuring 6 predator squad presets (Great White, Hammerhead, Pelagic Trio, Reef Patrol, etc.), 5 retro terminal color themes, chum feeding, splash mechanics, and real-time telemetry HUD.
+- **Interactive Project Chapter (`#/project/ascii-sharks`):** Dedicated deep-dive into the ASCII Sharks engine architecture with an inline interactive canvas.
+- **Zero Runtime Dependencies:** The entire simulation and rendering engine is implemented with pure vanilla Canvas 2D, ported and optimized without external graphics or physics libraries. Attribution to Andrew Hunter ([stackedlol/ascii-sharks](https://github.com/stackedlol/ascii-sharks)).
 
 ## Editing content
 

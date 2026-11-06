@@ -16,7 +16,7 @@ test('shows the featured current-work chapter', () => {
 
 test('renders the bookmark shelf with every project bookmark', () => {
   render(<App />);
-  ['STREAM', 'CodeSprint', 'Sentiment', 'HTTP/1.1'].forEach((bookmark) => {
+  ['ASCII Sharks', 'STREAM', 'CodeSprint', 'Sentiment', 'HTTP/1.1'].forEach((bookmark) => {
     expect(screen.getByRole('tab', { name: new RegExp(bookmark, 'i') })).toBeInTheDocument();
   });
 });

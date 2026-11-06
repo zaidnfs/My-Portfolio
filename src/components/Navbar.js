@@ -1,4 +1,4 @@
-import { LampCeiling } from 'lucide-react';
+import { LampCeiling, Waves } from 'lucide-react';
 import { navigate } from '../router/useHashRoute';
 
 const LINKS = [
@@ -48,6 +48,15 @@ export default function Navbar({ route, dark = false, onToggleTheme }) {
               </button>
             ))}
           </nav>
+          <button
+            type="button"
+            onClick={() => navigate('/aquarium')}
+            className="flex items-center gap-1.5 rounded-full border border-ink/15 bg-white/70 px-2.5 py-1 font-hand text-base sm:text-lg text-ink shadow-sm transition hover:-translate-y-0.5 hover:border-terracotta/50 hover:bg-white hover:text-terracotta"
+            title="Explore ASCII Sharks Aquarium Lab"
+          >
+            <Waves size={15} className="text-terracotta" />
+            <span className="hidden xs:inline">Deep Sea</span>
+          </button>
           <button
             type="button"
             onClick={onToggleTheme}

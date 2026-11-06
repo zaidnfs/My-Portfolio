@@ -1,6 +1,13 @@
-import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Waves } from 'lucide-react';
 import { MarginDoodle, PencilDoodle } from './Doodles';
 import { profile } from '../data/projects';
+import { navigate } from '../router/useHashRoute';
+import { AsciiOcean } from './ascii-ocean';
+
+const HERO_SHARKS = [
+  { kind: 'classic', size: 0.9 },
+  { kind: 'hammerhead', size: 0.74 },
+];
 
 function ContactChip({ href, icon: Icon, label, external = false }) {
   return (
@@ -15,12 +22,30 @@ function ContactChip({ href, icon: Icon, label, external = false }) {
   );
 }
 
-export default function Hero() {
+export default function Hero({ dark = false }) {
   let letterIndex = -1;
 
   return (
-    <section id="story" className="scroll-mt-24">
-      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-20">
+    <section id="story" className="relative scroll-mt-24 overflow-hidden">
+      {/* Ambient ASCII Ocean — living parchment & ink ocean scoped to the Hero section */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+      >
+        <AsciiOcean
+          theme={dark ? 'night' : 'paper'}
+          sharks={HERO_SHARKS}
+          fishCount={75}
+          interactive={false}
+          className="absolute inset-0 h-full w-full opacity-45 dark:opacity-75 transition-opacity duration-700"
+        />
+        {/* Soft edge gradient to gently blend ocean into the parchment background */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-paper dark:to-[#191510] opacity-85"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-20">
         <MarginDoodle side="right" caption="once upon a commit…">
           <PencilDoodle className="h-32 w-32" />
         </MarginDoodle>
@@ -71,6 +96,18 @@ export default function Hero() {
           <ContactChip href={`tel:${profile.phone.replace(/[^+\d]/g, '')}`} icon={Phone} label={profile.phone} />
           <ContactChip href={profile.github} icon={Github} label="GitHub" external />
           <ContactChip href={profile.linkedin} icon={Linkedin} label="LinkedIn" external />
+        </div>
+
+        <div className="mt-8">
+          <button
+            type="button"
+            onClick={() => navigate('/aquarium')}
+            className="group inline-flex items-center gap-2.5 rounded-full border border-terracotta/30 bg-white/75 px-5 py-2 font-hand text-lg text-ink shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-terracotta/60 hover:bg-white hover:text-terracotta"
+          >
+            <Waves size={17} className="text-terracotta transition-transform group-hover:scale-110" />
+            <span>Dive into Deep Waters: ASCII Sharks Lab</span>
+            <span className="font-mono text-xs uppercase text-terracotta opacity-75 group-hover:translate-x-1 transition-transform">→</span>
+          </button>
         </div>
       </div>
       <div className="rule-dashed mx-auto max-w-3xl" aria-hidden="true" />

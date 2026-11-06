@@ -76,7 +76,13 @@ export default function Footer() {
 
         <p className="mt-9 text-sm text-inksoft">
           © {new Date().getFullYear()} Mohammad Zaid Alam · hand-bound with React &amp;
-          Tailwind CSS on dotted paper.
+          Tailwind CSS on dotted paper ·{' '}
+          <a
+            href="#/aquarium"
+            className="hover:text-terracotta underline decoration-dotted transition"
+          >
+            🦈 Deep Waters ASCII Lab
+          </a>
         </p>
       </div>
     </footer>
